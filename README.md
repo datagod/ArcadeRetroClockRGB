@@ -15,7 +15,7 @@ There are 4 games that have been converted to this new playform so far.
 
 **Outbreak**
 <BR>Inspired by the computer program "Game of Life" and by a hunk of moldy cheese I keep nibbling at.  
-
+Watch the video: https://youtu.be/Z9uW0MQYcrE?t=260
 Viruses moving around a petrie dish, consuming the light blue food. They will replicate, mutate, infect each other, change speed up or down. I wanted them to clump together and move in the same direction. Sometimes they shoot off an "explorer" that will infect other colonies. When a single color virus dominates for 50 moves, a message appears saying "infection cured" or something like that. The virus number is simply the RGB value of the winning color.
 
 Fun fact: Outbreak is too long of a word to display on the new screen when doubling the font size, so I changed it to UTBR8K.  Either name works. 
