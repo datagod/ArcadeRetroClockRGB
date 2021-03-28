@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python
 #print("moves:",moves,end='\r', flush=True)
 #notes: check all playfield[v][h] in all versions to make sure v comes first.  I found one where it was switched
@@ -7,13 +6,26 @@
 #   their HV co-ordinates looked at.  We want to draw the sprite around the center of the sprite, not the corner
 #   Look at SpaceDot homing missile for an example.
 #------------------------------------------------------------------------------
+
+
+
+#------------------------------------------------------------------------------
+#                                                                            --
+#      _    ____   ____    _    ____  _____    ____ _     ___   ____ _  __   --
+#     / \  |  _ \ / ___|  / \  |  _ \| ____|  / ___| |   / _ \ / ___| |/ /   --
+#    / _ \ | |_) | |     / _ \ | | | |  _|   | |   | |  | | | | |   | ' /    --
+#   / ___ \|  _ <| |___ / ___ \| |_| | |___  | |___| |__| |_| | |___| . \    --
+#  /_/   \_\_| \_\\____/_/   \_\____/|_____|  \____|_____\___/ \____|_|\_\   --
 #                                                                            --
 #                                                                            --
+#  Main Programs                                                             --
 #                                                                            --
 #------------------------------------------------------------------------------
 
+
+
 #------------------------------------------------------------------------------
-#  Big Pac Dot
+#  Arcade Retro Clock RGB
 #  
 #  Copyright 2021 William McEvoy
 #  Metropolis Dreamware Inc.
@@ -29,6 +41,9 @@
 #   Date:    January 13, 2021                                                --
 #   Reason:  Converting PacDot to run on 64x32 panel                         --
 #------------------------------------------------------------------------------
+#   Version: 0.2                                                             --
+#   Date:    January 13, 2021                                                --
+#   Reason:  Lots of cleanup                                                 --
 #------------------------------------------------------------------------------
 
 
