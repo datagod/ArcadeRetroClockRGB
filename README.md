@@ -10,7 +10,10 @@ Arcade Retro Clock started out as a project on an 8x8 matrix.  Over the years it
 There are 4 games that have been converted to this new playform so far.
 <BR><BR>
 ![OutbreakTitle](https://user-images.githubusercontent.com/7650580/112741795-a13cae00-8f56-11eb-876c-cc1321538479.jpg)
-  
+
+![OutbreakSmall](https://user-images.githubusercontent.com/7650580/112759070-573be280-8fbf-11eb-8db0-74ed8be52f2a.jpg)
+ 
+
 
 **Outbreak**
 <BR>Inspired by the computer program "Game of Life" and by a hunk of moldy cheese I keep nibbling at.  
