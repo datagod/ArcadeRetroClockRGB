@@ -29,5 +29,5 @@ If the mother ship gets hit twice it gets angry and starts nuking.
 <BR>It tells the time, day of week, month of year.
 
 **Crypto Balance**
-The clock will display the balance of a crytp wallet, converted to a currency.  The default is my Ether wallet and the currency is Canadian.
+<BR>The clock will display the balance of a crytp wallet, converted to a currency.  The default is my Ether wallet and the currency is Canadian.
 
