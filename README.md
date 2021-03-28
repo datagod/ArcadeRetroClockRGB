@@ -1,6 +1,9 @@
 # Arcade Retro Clock RGB
 Arcade Retro Clock converted to run on RGB Matrix (64x32)
 
+![ArcadeRetroClockTitleSmall](https://user-images.githubusercontent.com/7650580/112741888-64bd8200-8f57-11eb-9737-7b443b0ef523.jpg)
+
+
 Arcade Retro Clock started out as a project on an 8x8 matrix.  Over the years it has been converted to 16x16 and now 64x32.  Each conversion process involved solving many bugs and enhancing the game play especially with respects to the computer's ability to play against itself.
 
 There are 4 games that have been converted to this new playform so far.
