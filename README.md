@@ -49,8 +49,8 @@ If the mother ship gets hit twice it gets angry and starts nuking.
 <BR>The clock will display the balance of a crytp wallet, converted to a currency.  The default is my Ether wallet and the currency is Canadian.
 
 # Requirements
-Raspberry Pi 3 and up
-Adafruit LED Matrix (64x32)
-Adafruit RGB Hat
+<BR>Raspberry Pi 3 and up
+<BR>Adafruit LED Matrix (64x32)
+<BR>Adafruit RGB Hat
 
 
