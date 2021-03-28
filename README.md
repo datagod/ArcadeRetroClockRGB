@@ -3,6 +3,7 @@ Arcade Retro Clock converted to run on Adfruit LED Matrix (64x32) with RGB HAT
 
 ![ArcadeRetroClockTitleSmall](https://user-images.githubusercontent.com/7650580/112741888-64bd8200-8f57-11eb-9737-7b443b0ef523.jpg)
 
+Watch the Video: https://youtu.be/Z9uW0MQYcrE?t=10
 
 Arcade Retro Clock started out as a project on an 8x8 matrix.  Over the years it has been converted to 16x16 and now 64x32.  Each conversion process involved solving many bugs and enhancing the game play especially with respects to the computer's ability to play against itself.
 
