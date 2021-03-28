@@ -1,3 +1,4 @@
+
 # Arcade Retro Clock RGB
 Arcade Retro Clock converted to run on Adfruit LED Matrix (64x32) with RGB HAT
 
@@ -10,10 +11,7 @@ Arcade Retro Clock started out as a project on an 8x8 matrix.  Over the years it
 There are 4 games that have been converted to this new playform so far.
 <BR><BR>
 ![OutbreakTitle](https://user-images.githubusercontent.com/7650580/112741795-a13cae00-8f56-11eb-876c-cc1321538479.jpg)
-
 ![OutbreakSmall](https://user-images.githubusercontent.com/7650580/112759070-573be280-8fbf-11eb-8db0-74ed8be52f2a.jpg)
- 
-
 
 **Outbreak**
 <BR>Inspired by the computer program "Game of Life" and by a hunk of moldy cheese I keep nibbling at.  
@@ -23,6 +21,7 @@ Viruses moving around a petrie dish, consuming the light blue food. They will re
 Fun fact: Outbreak is too long of a word to display on the new screen when doubling the font size, so I changed it to UTBR8K.  Either name works. 
 
 <BR><BR>
+![PacDotTitleSmall](https://user-images.githubusercontent.com/7650580/112771840-ce8f6780-8ffb-11eb-84b0-9d89e4e62e90.jpg)
 ![PacDotsmall](https://user-images.githubusercontent.com/7650580/112741783-8a965700-8f56-11eb-9089-b99f5fbe949d.jpg)
 
 **PaKdot**
@@ -35,6 +34,7 @@ Fun fact: Outbreak is too long of a word to display on the new screen when doubl
 <BR>A fun game where players try to ram each other each other's jet walls.
 
 <BR><BR>
+![AstroSmashTitleSmall](https://user-images.githubusercontent.com/7650580/112771883-fd0d4280-8ffb-11eb-8871-918ced7526c7.jpg)
 ![AstroSmashSmall](https://user-images.githubusercontent.com/7650580/112741787-95e98280-8f56-11eb-9e24-ff883e6d8aaf.jpg)
 
 **Astro Smash!**
