@@ -4247,6 +4247,7 @@ def MoveWorm(Dot):
   h = 0
   v = 0
   Dot.trail.append((Dot.h, Dot.v))
+
   ItemList = []
 
   #Scan all around, make decision, move
@@ -4462,6 +4463,7 @@ def MoveSuperWorm(Dot):
   h = 0
   v = 0
   Dot.trail.append((Dot.h, Dot.v))
+  Dot.score = Dot.score + 1
   ItemList = []
 
   #Scan all around, make decision, move
@@ -4807,11 +4809,19 @@ def PlaySuperWorms():
       #Display dots if they are alive
       #Do other stuff too
       WormsAlive = 0
+      Score = 0
+      ScoreRGB = (0,0,0)
+
       for i in range(0,gv.SuperWormCount):
+
         if (SuperWorms[i].alive == 1):
           SuperWorms[i].Display()
           SuperWorms[i].TrimTrail()
           WormsAlive = WormsAlive + 1
+          if (Score < SuperWorms[i].score):
+            Score = SuperWorms[i].score
+            ScoreRGB = SuperWorms[i].r,SuperWorms[i].g,SuperWorms[i].b
+
 
           #Increase speed if necessary
           m,r = divmod(moves,gv.IncreaseTrailLengthSpeed)
@@ -4847,11 +4857,15 @@ def PlaySuperWorms():
 
 
 
-      #Calculate Movement
+      #Calculate Movement / Display Score
       moves = moves +1
 
+      #don't print the screen every move, otherwise it slows game down
+      #this is a good spot for implementing multithreading
+      if (random.randint(1,10) == 1):
+        cf.DisplayScore(Score,ScoreRGB)
 
-
+      
 
       LevelFinished = 'Y'
       for i in range(0,gv.SuperWormCount):
