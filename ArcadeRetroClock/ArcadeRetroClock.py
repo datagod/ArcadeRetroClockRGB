@@ -4602,33 +4602,33 @@ def CreateSuperWormMap(MapLevel):
 
   SuperWormMap[0].map= (
     #0........1.........2.........3.........4.........5.........6....64    
-    "              -                                                  ", #0  
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ", #10
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ", #20
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              -                                                  ",
-    "              ---------------------------------------------------",
+    "                -                                                ", #0  
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ", #10
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ", #20
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -------------------------------------------------",
     "                                                                 ",
     "                                                                 ",
     "                                                                 ",
@@ -4637,8 +4637,74 @@ def CreateSuperWormMap(MapLevel):
     "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" #32
   )
 
-  SuperWormMap[0].LoadMap()
+  #Create maze 0
+  SuperWormMap.append(cf.Maze(
+    h      = 0,
+    v      = 0,
+    width  = 64, 
+    height = 32
+    )
+  )
+  SuperWormMap[1].ColorList = {
+    ' ' : (0,0,0),
+    'O' : cf.WallRGB,
+    '-' : (0,4,0),
+    '|' : cf.WallRGB
+  }
+
+
+  SuperWormMap[1].TypeList = {
+    ' ' : 'EmptyObject',
+    'O' : 'wall',
+    '-' : 'wall',
+    '|' : 'wall'
+
+  }
+
+
+
+  SuperWormMap[1].map= (
+    #0........1.........2.........3.........4.........5.........6....64    
+    "                -                                                ", #0  
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -              OOOOOOOOOOOOOOOOOOO               ",
+    "                -              O                 O               ",
+    "                -              O                 O               ",
+    "                -              OOOOOOOO   OOOOOOOO               ",
+    "                -                     O   O                      ", #10
+    "                -                     O   O                      ",
+    "                -                     O   O                      ",
+    "                -                     O   O                      ",
+    "                -                     O   O                      ",
+    "                -                     OOOOO                      ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -           OOOOOOOOOOOOOOOOOOOOOOOOOOO          ", #20
+    "                -           O                         O          ",
+    "                -           OOOOOOOOOOOOOOOOOOOOOOOOOOO          ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -                                                ",
+    "                -------------------------------------------------",
+    "                                                                 ",
+    "                                                                 ",
+    "                                                                 ",
+    "                                                                 ", #30
+    "                                                                 ",
+    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" #32
+  )
+
   
+  
+  SuperWormMap[MapLevel].LoadMap()
+
+
   return
 
 
@@ -4747,7 +4813,7 @@ def PlaySuperWorms():
 
     LevelCount = LevelCount - 1
     cf.ClearBigLED()
-    CreateSuperWormMap(1)
+    CreateSuperWormMap(random.randint(0,1))
 
 
     #Show Custom Sprite
@@ -4788,7 +4854,8 @@ def PlaySuperWorms():
           LevelCount    = 0
           LevelFinished = 'Y'
           return
-      
+        if (Key == 'n'):
+          CreateSuperWormMap(random.randint(0,1))      
       #Show clock
       m,r = divmod(moves,CheckClockSpeed)
       if (r == 0):
