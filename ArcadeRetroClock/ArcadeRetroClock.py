@@ -4718,6 +4718,7 @@ def PlaySuperWorms():
   moves      = 0
   Finished   = 'N'
   LevelCount = 3
+  HighScore  = 0
 
   maxtrail     = gv.StartMaxTrail
   SpeedUpSpeed = gv.SpeedUpSpeed
@@ -4798,9 +4799,9 @@ def PlaySuperWorms():
   time.sleep(1)
   gv.TheMatrix.Clear()
   gv.Canvas.Clear()
-  cf.ZoomScreen(gv.ScreenArray,32,128,0.001)
-  cf.ZoomScreen(gv.ScreenArray,128,1,0.001)
+  cf.ZoomScreen(gv.ScreenArray,32,256,0)
   time.sleep(1)
+  gv.TheMatrix.Clear()
 
 
 
@@ -4836,10 +4837,10 @@ def PlaySuperWorms():
       SuperWorms[i].maxtrail  = gv.StartMaxTrail
       SuperWorms[i].trail     = [(SuperWorms[i].h, SuperWorms[i].v)]
       
-
+    
     LevelFinished = 'N'
     SleepTime = gv.SuperWormSleep
-  
+    
 
 
     while (LevelFinished == 'N'):
@@ -4972,22 +4973,28 @@ def PlaySuperWorms():
   print ("Winner: SuperWorm",i," score:",LongestTrail)
   #SuperWorms[WinningSuperWorm].score = SuperWorms[WinningSuperWorm].score + LongestTrail
 
-  FinalScore  = LongestTrail
+  FinalScore  = str(LongestTrail)
   FinalWinner = SuperWorms[WinningSuperWorm].name
   Finalr      = SuperWorms[WinningSuperWorm].r
   Finalg      = SuperWorms[WinningSuperWorm].g
-  Finalb      = SuperWorms[WinningSuperWorm].b
+  Finalb      = SuperWorms[WinningSuperWorm].b 
+  FinalRGB    = (Finalr,Finalg,Finalb)
   
+  gv.TheMatrix.Clear()
+  cf.ClearBuffers()
+  cf.ShowGlowingText(CenterHoriz=True,h=0,v=1 ,Text= 'GAME',       RGB= cf.HighRed,    ShadowRGB= cf.ShadowRed,    ZoomFactor= 2,GlowLevels=150, DropShadow=True)
+  cf.ShowGlowingText(CenterHoriz=True,h=0,v=12,Text= 'OVER',       RGB= cf.HighRed,    ShadowRGB= cf.ShadowRed,    ZoomFactor= 2,GlowLevels=150, DropShadow=True)
+  cf.ShowGlowingText(CenterHoriz=True,h=0,v=26,Text= FinalScore,   RGB= FinalRGB,      ShadowRGB= (15,15,15),      ZoomFactor= 1,GlowLevels=150, FadeLevels=150,DropShadow=True)
+  ThreeGhostSprite.ScrollAcrossScreen(0,26,'right',gv.ScrollSleep)
+
+  gv.TheMatrix.Clear()
+  gv.Canvas.Clear()
+  cf.ZoomScreen(gv.ScreenArray,32,256,0.001)
 
 
-  
-  ScrollString = FinalWinner + ' ' + str(FinalScore)
-  
-  cf.ShowScrollingBanner2(ScrollString,(cf.MedGreen),gv.ScrollSleep)
-  cf.ShowScrollingBanner2("GAME OVER",(cf.MedRed),gv.ScrollSleep)
-  
-  cf.ClearBigLED()
-  DrawSnake(0,0,(cf.MedRed),3,1)
+
+
+
 
   return;
 
@@ -14237,6 +14244,7 @@ def PlayPacDot(NumDots):
   gv.Canvas.Clear()
   cf.ZoomScreen(gv.ScreenArray,32,1,0.001)
   time.sleep(1)
+  gv.TheMatrix.Clear()
 
 
 
@@ -17977,10 +17985,8 @@ while (1==1):
     time.sleep(1)
     gv.TheMatrix.Clear()
     gv.Canvas.Clear()
-
-
-    cf.ZoomScreen(gv.ScreenArray,32,128,0.001)
-    cf.ZoomScreen(gv.ScreenArray,128,1,0.001)
+    cf.ZoomScreen(gv.ScreenArray,32,128,0)
+    cf.ZoomScreen(gv.ScreenArray,128,1,0)
 
     PlaySuperWorms()
     PlayPacDot(40)

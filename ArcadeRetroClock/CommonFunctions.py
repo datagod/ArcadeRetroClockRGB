@@ -7736,7 +7736,8 @@ def ScrollScreen(direction,ScreenCap,speed):
 
 
 
-
+# Try looping the number of zooms, but re-capture the screen at the zoomed in level and pass that back into
+# the DisplayScreenCap function
 
 
 def ZoomScreen(ScreenArray,ZoomStart,ZoomStop,ZoomSleep):    
@@ -7751,14 +7752,16 @@ def ZoomScreen(ScreenArray,ZoomStart,ZoomStop,ZoomSleep):
     for ZoomFactor in range (ZoomStart,ZoomStop):
       gv.TheMatrix.Clear()        
       DisplayScreenCap(ScreenArray,ZoomFactor)
-      time.sleep(ZoomSleep)
+      if (ZoomSleep > 0):
+        time.sleep(ZoomSleep)
         
   else:
     for ZoomFactor in reversed(range(ZoomStop, ZoomStart)):
       #clear the screen as we zoom to remove leftovers
       gv.TheMatrix.Clear()        
       DisplayScreenCap(ScreenArray,ZoomFactor )
-      time.sleep(ZoomSleep)
+      if (ZoomSleep > 0):
+        time.sleep(ZoomSleep)
 
 
 
@@ -7774,23 +7777,30 @@ def ZoomScreen(ScreenArray,ZoomStart,ZoomStop,ZoomSleep):
 
 def DisplayScreenCap(ScreenCap,ZoomFactor = 0):
   #This function writes a Screen capture to the buffer using the specified zoom factor
+  #ZoomFactor is based on Vertical height.  
+  #  Matrix = 32, Zoom 16 = shrink screen to 1/2 size
+  #  Matrix = 32, Zoom 64 = show 1/2 of screen capture, doubled so it fits on whole screen
   r = 0
   g = 0
   b = 0
   count    = 0
   H_modifier = 0
   V_modifier = 0
-    
+  H = 0
+  V = 0
   HIndentFactor = 0    
   VIndentFactor = 0    
+
+  #NewScreenCap = deepcopy.copy(ScreenCap)
 
 
   if (ZoomFactor > 1):
     H_modifier = (1 / gv.HatWidth ) * ZoomFactor * 2  #BigLED is 2 times wider than tall. Hardcoding now, will fix later. 
     V_modifier = (1 / gv.HatHeight ) * ZoomFactor
+
+    #calculate the newsize of the zoomed screen cap
     NewHeight = round(gv.HatHeight * V_modifier)
     NewWidth  = round(gv.HatWidth * H_modifier)
-
 
     HIndentFactor = (gv.HatWidth / 2)  - (NewWidth /2)
     VIndentFactor = (gv.HatHeight / 2) - (NewHeight /2)
@@ -7799,15 +7809,19 @@ def DisplayScreenCap(ScreenCap,ZoomFactor = 0):
 
 
 
+#  for V in range(max(math.floor((0 + V_modifier * 2) ),0) ,min(math.floor((gv.HatHeight - V_modifier * 2) ),gv.HatHeight-1)) :
+#    for H in range (max(math.floor((0 + H_modifier * 4)),0),min(math.floor((gv.HatWidth - H_modifier * 4) ),gv.HatWidth-1)):
   for V in range(0,gv.HatHeight):
     for H in range (0,gv.HatWidth):
-      r,g,b = ScreenCap[V][H]
-      if (ZoomFactor > 0):
-        gv.Canvas.SetPixel((H * H_modifier) + HIndentFactor ,(V * V_modifier) + VIndentFactor,r,g,b)
+      if (CheckBoundary((H * H_modifier) + HIndentFactor ,(V * V_modifier) + VIndentFactor) == 0):
+      
+        r,g,b = ScreenCap[V][H]
+        if (ZoomFactor > 0):
+          gv.Canvas.SetPixel((H * H_modifier) + HIndentFactor ,(V * V_modifier) + VIndentFactor,r,g,b)
+        
+        else:
+          gv.Canvas.SetPixel(H,V,r,g,b)
 
-      else:
-        gv.Canvas.SetPixel(H,V,r,g,b)
-  
   gv.TheMatrix.SwapOnVSync(gv.Canvas)
         
   
