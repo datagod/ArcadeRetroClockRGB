@@ -250,8 +250,7 @@ DotPoints         = 1
 BlueGhostPoints   = 20
 PillPoints        = 5
 PacDotScore       = 0
-PacDotGamesPlayed = 0
-PacDotHighScore   = 0
+
 
 
 MaxMoves = 2000
@@ -4799,8 +4798,7 @@ def PlaySuperWorms():
   time.sleep(1)
   gv.TheMatrix.Clear()
   gv.Canvas.Clear()
-  cf.ZoomScreen(gv.ScreenArray,32,256,0)
-  time.sleep(1)
+  cf.ZoomScreen(gv.ScreenArray,32,256,0,Fade=True)
   gv.TheMatrix.Clear()
 
 
@@ -4989,7 +4987,7 @@ def PlaySuperWorms():
 
   gv.TheMatrix.Clear()
   gv.Canvas.Clear()
-  cf.ZoomScreen(gv.ScreenArray,32,256,0.001)
+  cf.ZoomScreen(gv.ScreenArray,32,256,0,Fade=True)
 
 
 
@@ -6669,9 +6667,9 @@ def PlaySpaceDot():
   time.sleep(1)
   gv.TheMatrix.Clear()
   gv.Canvas.Clear()
-  cf.ZoomScreen(gv.ScreenArray,32,128,0.001)
-  cf.ZoomScreen(gv.ScreenArray,128,1,0.001)
-  time.sleep(1)
+  cf.ZoomScreen(gv.ScreenArray,32,128,0)
+  cf.ZoomScreen(gv.ScreenArray,128,1,0,Fade=True)
+  
 
 
 
@@ -14116,8 +14114,8 @@ def PlayPacDot(NumDots):
   global BlueGhostPoints 
   global PillPoints      
   global PacDotScore     
-  global PacDotGamesPlayed
-  global PacDotHighScore  
+  
+
   global start_time
 
 
@@ -14242,8 +14240,7 @@ def PlayPacDot(NumDots):
   ThreeBlueGhostPacSprite.ScrollAcrossScreen(gv.HatWidth,26,'left',gv.ScrollSleep)
   gv.TheMatrix.Clear()
   gv.Canvas.Clear()
-  cf.ZoomScreen(gv.ScreenArray,32,1,0.001)
-  time.sleep(1)
+  cf.ZoomScreen(gv.ScreenArray,32,1,0,Fade=True)
   gv.TheMatrix.Clear()
 
 
@@ -14721,6 +14718,70 @@ def PlayPacDot(NumDots):
  
 
 
+  #Create Maze 6
+  PacMaze.append(cf.Maze(
+    h      = 18,
+    v      = 0,
+    width  = 43, 
+    height = 27
+    )
+  )
+  PacMaze[6].ColorList = {
+    ' ' : cf.DotRGB,
+    'o' : cf.WallRGB,
+    'x' : (100,50,  0),
+    '@' : cf.WallRGB,
+    '-' : cf.WallRGB,
+    '|' : cf.WallRGB,
+    '.' : cf.DotRGB,
+    '*' : (cf.PillR, cf.PillG, cf.PillB)
+  }
+
+
+  PacMaze[6].TypeList = {
+    ' ' : 'dot',
+    'o' : 'wall',
+    'O' : 'wall',
+    '@' : 'wall',
+    'o' : 'wall',
+    '-' : 'wall',
+    '|' : 'wall',
+    '.' : 'dot',
+    '*' : 'pill'
+  }
+
+
+
+  PacMaze[6].map= (
+    "ooooooooooooooooooooooooooooooooooooooooooo",
+    "oo       . . . .           . . . . .     oo",
+    "o . . . ooooooo             ooooooo . .   o",
+    "o  *   .oxxxxxo. . . * . . .oxxxxxo.   *  o",
+    "o .     ooooooo             ooooooo       o",
+    "o  .   . .     .           .           .  o",
+    "o .                                       o",
+    "o  .           .   . *                 .  o",
+    "o .             . . . . . .               o",
+    "o          . . .           . . . . .   .  o",
+    "o .     ooooooo      .      ooooooo       o",   
+    "o  . * .oxxxxxo            .oxxxxxo. * .  o",
+    "o       oooxooo      .      oooxooo       o",
+    "o      . .oxo. . . . . . . . .oxo. .      o",
+    "o       oooxooo      .      oooxooo       o",
+    "o  . * .oxxxxxo.           .oxxxxxo. * .  o",
+    "o .     ooooooo      .      ooooooo       o",   
+    "o      . . . . .           . . . . .   .  o",
+    "o .                                       o",
+    "o  .                                      o",
+    "o .                  *                    o",
+    "o  .                                      o",
+    "o .     ooooooo             ooooooo       o",
+    "o  *   .oxxxxxo. . . * . . .oxxxxxo.      o",
+    "o .     ooooooo             ooooooo       o",
+    "oo .  .  .  .  .           .  .  .  .  . oo",
+    "ooooooooooooooooooooooooooooooooooooooooooo"
+)
+
 
 
 
@@ -14799,8 +14860,8 @@ def PlayPacDot(NumDots):
  
 
     #Set starting positions and Current Maze
-    #CurrentMaze = (random.randint(0,4))
-    CurrentMaze = 5
+    CurrentMaze = (random.randint(0,6))
+    
     gv.DotMatrix,NumDots = PacMaze[CurrentMaze].LoadMap()
     (PacDotH, PacDotV), (Ghost1H, Ghost1V),  (Ghost2H, Ghost2V), (Ghost3H, Ghost3V), (Ghost4H, Ghost4V) = PacMaze[CurrentMaze].GetStartingPositions()
 
@@ -15122,10 +15183,10 @@ def PlayPacDot(NumDots):
         LevelCount = LevelCount + 1
  
         print ("End of level")
-        print ("PacDotScore: ",PacDotScore," PacDotHighScore:",PacDotHighScore)
-        if (PacDotScore > int(PacDotHighScore)):
-          print ("** NEW HIGH SCORE: ",PacDotHighScore)
-          PacDotHighScore = PacDotScore
+        print ("PacDotScore: ",PacDotScore," PacDotHighScore:",gv.PacDotHighScore)
+        if (PacDotScore > int(gv.PacDotHighScore)):
+          print ("** NEW HIGH SCORE: ",gv.PacDotHighScore)
+          gv.PacDotHighScore = PacDotScore
 
         cf.SaveConfigData()
         
@@ -15139,12 +15200,12 @@ def PlayPacDot(NumDots):
 
 
 
-        PacDotGamesPlayed = PacDotGamesPlayed + 1
+        gv.PacDotGamesPlayed = gv.PacDotGamesPlayed + 1
         ScoreString = 'SCORE ' + str(PacDotScore) 
-        print ("PacDotScore:",PacDotScore," PacDotHighScore:",PacDotHighScore)
-        if (PacDotScore > int(PacDotHighScore)):
-          print ("** NEW HIGH SCORE: ",PacDotHighScore)
-          PacDotHighScore = PacDotScore
+        print ("PacDotScore:",PacDotScore," PacDotHighScore:",gv.PacDotHighScore)
+        if (PacDotScore > int(gv.PacDotHighScore)):
+          print ("** NEW HIGH SCORE: ",gv.PacDotHighScore)
+          gv.PacDotHighScore = PacDotScore
         
        
 
@@ -15159,15 +15220,15 @@ def PlayPacDot(NumDots):
 
         gv.TheMatrix.Clear()
         cf.ClearBuffers()
-        cf.ShowGlowingText(CenterHoriz=True,h=0,v=1 ,Text= 'HIGH SCORE',          RGB= cf.HighOrange, ShadowRGB= cf.ShadowOrange, ZoomFactor= 1,GlowLevels=50, DropShadow=True)
-        cf.ShowGlowingText(CenterHoriz=True,h=0,v=8 ,Text= str(PacDotHighScore),  RGB= cf.HighPurple, ShadowRGB= cf.ShadowPurple, ZoomFactor= 1,GlowLevels=100,FadeLevels=0,DropShadow=True)
-        cf.ShowGlowingText(CenterHoriz=True,h=0,v=16,Text= 'GAMES PLAYED',        RGB= cf.HighOrange, ShadowRGB= cf.ShadowOrange, ZoomFactor= 1,GlowLevels=50, DropShadow=True)
-        cf.ShowGlowingText(CenterHoriz=True,h=0,v=26,Text= str(PacDotGamesPlayed),RGB= cf.HighPurple, ShadowRGB= cf.ShadowPurple, ZoomFactor= 1,GlowLevels=100,FadeLevels=0,DropShadow=True)
+        cf.ShowGlowingText(CenterHoriz=True,h=0,v=1 ,Text= 'HIGH SCORE',             RGB= cf.HighOrange, ShadowRGB= cf.ShadowOrange, ZoomFactor= 1,GlowLevels=50, DropShadow=True)
+        cf.ShowGlowingText(CenterHoriz=True,h=0,v=8 ,Text= str(gv.PacDotHighScore),  RGB= cf.HighPurple, ShadowRGB= cf.ShadowPurple, ZoomFactor= 1,GlowLevels=100,FadeLevels=0,DropShadow=True)
+        cf.ShowGlowingText(CenterHoriz=True,h=0,v=16,Text= 'GAMES PLAYED',           RGB= cf.HighOrange, ShadowRGB= cf.ShadowOrange, ZoomFactor= 1,GlowLevels=50, DropShadow=True)
+        cf.ShowGlowingText(CenterHoriz=True,h=0,v=26,Text= str(gv.PacDotGamesPlayed),RGB= cf.HighPurple, ShadowRGB= cf.ShadowPurple, ZoomFactor= 1,GlowLevels=100,FadeLevels=0,DropShadow=True)
         ThreeGhostSprite.ScrollAcrossScreen(0,26,'left',gv.ScrollSleep)
 
         gv.TheMatrix.Clear()
         gv.Canvas.Clear()
-        cf.ZoomScreen(gv.ScreenArray,32,256,0.001)
+        cf.ZoomScreen(gv.ScreenArray,32,256,0,Fade=True)
 
         PacDotScore = 0
 
@@ -16268,46 +16329,31 @@ def PlayOutbreak():
   
   #CameraH, CameraV, CameraSpeed = CameraPath[0]
   
+  cf.ShowGlowingText(CenterHoriz = True,h = -8,v = 1,   Text = 'UTBR8K', RGB = cf.HighOrange, ShadowRGB = cf.ShadowOrange, ZoomFactor = 8,GlowLevels=0,DropShadow=False)
+  gv.TheMatrix.Clear()
+  cf.ShowGlowingText(CenterHoriz = True,h = -8,v = 1,   Text = 'UTBR8K', RGB = cf.HighOrange, ShadowRGB = cf.ShadowOrange, ZoomFactor = 7,GlowLevels=0,DropShadow=False)
+  gv.TheMatrix.Clear()
+  cf.ShowGlowingText(CenterHoriz = True,h = -8,v = 1,   Text = 'UTBR8K', RGB = cf.HighOrange, ShadowRGB = cf.ShadowOrange, ZoomFactor = 6,GlowLevels=0,DropShadow=False)
+  gv.TheMatrix.Clear()
+  cf.ShowGlowingText(CenterHoriz = True,h = -8,v = 1,   Text = 'UTBR8K', RGB = cf.HighOrange, ShadowRGB = cf.ShadowOrange, ZoomFactor = 5,GlowLevels=0,DropShadow=False)
+  gv.TheMatrix.Clear()
+  cf.ShowGlowingText(CenterHoriz = True,h = -8,v = 1,   Text = 'UTBR8K', RGB = cf.HighOrange, ShadowRGB = cf.ShadowOrange, ZoomFactor = 4,GlowLevels=0,DropShadow=False)
+  gv.TheMatrix.Clear()
+  cf.ShowGlowingText(CenterHoriz = True,h = -8,v = 1,   Text = 'UTBR8K', RGB = cf.HighOrange, ShadowRGB = cf.ShadowOrange, ZoomFactor = 3,GlowLevels=0,DropShadow=False)
 
-
-
-
-  #Write introduction message
+  gv.TheMatrix.Clear()
   cf.ClearBuffers()
-  TheBanner = cf.CreateBannerSprite('UTBR8K')
-  cf.CopySpriteToPixelsZoom(TheBanner,-0,0,(cf.HighOrange),(0,0,0),8)
-  gv.Canvas.Fill(0,0,0)
-  cf.CopySpriteToPixelsZoom(TheBanner,-0,0,(cf.HighOrange),(0,0,0),7)
-  gv.Canvas.Fill(0,0,0)
-  cf.CopySpriteToPixelsZoom(TheBanner,-0,0,(cf.HighOrange),(0,0,0),6)
-  gv.Canvas.Fill(0,0,0)
-  cf.CopySpriteToPixelsZoom(TheBanner,-0,0,(cf.HighOrange),(0,0,0),5)
-  gv.Canvas.Fill(0,0,0)
-  cf.CopySpriteToPixelsZoom(TheBanner,-0,0,(cf.HighOrange),(0,0,0),4)
-  gv.Canvas.Fill(0,0,0)
-  cf.CopySpriteToPixelsZoom(TheBanner,-0,0,(cf.HighOrange),(0,0,0),3)
-  gv.Canvas.Fill(0,0,0)
-  cf.CopySpriteToPixelsZoom(TheBanner,-4,1,(cf.DarkOrange),(0,0,0),ZoomFactor=2,Fill=False)
-  cf.CopySpriteToPixelsZoom(TheBanner,-3,0,(cf.HighOrange),(0,0,0),ZoomFactor=2,Fill=False)
-  time.sleep(.5)
-  TheBanner = cf.CreateBannerSprite('A VIRUS GAME')
-  cf.CopySpriteToPixelsZoom(TheBanner,0,15,( 45,0,0),(0,0,0),ZoomFactor=1)
-  cf.CopySpriteToPixelsZoom(TheBanner,1,14,(200,0,0),(0,0,0),ZoomFactor=1,Fill=False)
-  time.sleep(1)
-
-  TheBanner = cf.CreateBannerSprite('BY DATAGOD')
-  cf.CopySpriteToPixelsZoom(TheBanner,0,26,( 0,10, 0),(0,0,0),ZoomFactor=1,Fill=False)
+  cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 1,   Text = 'UTBR8K',      RGB = cf.HighYellow, ShadowRGB = cf.ShadowYellow, ZoomFactor = 2,GlowLevels=50, DropShadow=True)
+  cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 16,  Text = 'A VIRUS GAME',RGB = cf.HighRed,    ShadowRGB = cf.ShadowRed,    ZoomFactor = 1,GlowLevels=200,DropShadow=True)
+  cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 26,  Text = 'BY DATAGOD',  RGB = cf.HighGreen,  ShadowRGB = cf.ShadowGreen, ZoomFactor = 1,GlowLevels=100,FadeLevels=50,DropShadow=True)
   
-  for i in range (1,200):
-    cf.CopySpriteToPixelsZoom(TheBanner,1,25,(0,i,0),(0,0,0),ZoomFactor=1,Fill=False)
+  ThreeGhostPacSprite.ScrollAcrossScreen(0,26,'right',gv.ScrollSleep)
+  ThreeBlueGhostPacSprite.ScrollAcrossScreen(gv.HatWidth,26,'left',gv.ScrollSleep)
+  gv.TheMatrix.Clear()
+  gv.Canvas.Clear()
+  cf.ZoomScreen(gv.ScreenArray,32,1,0,Fade=True)
   time.sleep(1)
-  #cf.ClearBigLED()
-
-  cf.ShowGlowingText(1,25,'BY DATAGOD',(0,0,250),(0,0,20),ZoomFactor=1)
-
-  cf.ZoomScreen(gv.ScreenArray,32,1,0.001)
-  cf.ZoomScreen(gv.ScreenArray,1,128,0.001)
-  cf.ZoomScreen(gv.ScreenArray,128,1,0.001)
+  gv.TheMatrix.Clear()
 
 
 
@@ -17931,7 +17977,7 @@ while (1==1):
   print ("--CurrentTime--")
   print ("",now, hh)
   print ("TinyClockStartHH TinyClockHours",gv.TinyClockStartHH,gv.TinyClockHours)
-  print ("PacDotHighScore: ",PacDotHighScore)
+  print ("PacDotHighScore: ",gv.PacDotHighScore)
 
 #  if (hh >= TinyClockStartHH and hh <= 24):
 #    DrawTinyClock(TinyClockHours*60)
@@ -17985,8 +18031,8 @@ while (1==1):
     time.sleep(1)
     gv.TheMatrix.Clear()
     gv.Canvas.Clear()
-    cf.ZoomScreen(gv.ScreenArray,32,128,0)
-    cf.ZoomScreen(gv.ScreenArray,128,1,0)
+
+    cf.ZoomScreen(gv.ScreenArray,32,1,0,Fade=True)
 
     PlaySuperWorms()
     PlayPacDot(40)

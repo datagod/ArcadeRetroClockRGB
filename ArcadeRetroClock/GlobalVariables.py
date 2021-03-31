@@ -32,8 +32,6 @@ HatHeight        = 32
 KeyboardPoll     = 10
 
 
-PacDotHighScore = 0
-
 
 #-----------------------------
 # BIG LED                   --
@@ -189,8 +187,10 @@ SpriteFillerRGB = (0,4,0)
 #-- PacDot                 --
 #----------------------------
 
-PacDotScore = 0
-PacDotHighScore = 0
+PacDotScore       = 0
+PacDotHighScore   = 0
+PacDotGamesPlayed = 0
+
 FindClosestDotSpeed = 1
 TurnTowardsBlueGhostSpeed = 1
 PacDotRecentMoves=[]

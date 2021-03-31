@@ -5429,7 +5429,7 @@ def random_message(MessageFile):
 
 def SaveConfigData():
   
-  global PacDotHighScore 
+  
    
   print (" ")
   print ("--Save Config Data--")
@@ -5453,13 +5453,15 @@ def SaveConfigData():
 
     
   print ("Time to save: ",AdjustedTime)
-  print ("Pacdot score:      ",gv.PacDotScore)
-  print ("Pacdot high score: ",gv.PacDotHighScore)
-  print ("Crypto balance:    ",gv.CryptoBalance)
+  print ("Pacdot score:      " ,gv.PacDotScore)
+  print ("Pacdot high score: " ,gv.PacDotHighScore)
+  print ("Pacdot games played:",gv.PacDotGamesPlayed)
+  print ("Crypto balance:    " ,gv.CryptoBalance)
 
-  ConfigFile.set('main',   'CurrentTime',     AdjustedTime)
-  ConfigFile.set('pacdot', 'PacDotHighScore', str(gv.PacDotHighScore))
-  ConfigFile.set('crypto', 'balance',         str(gv.CryptoBalance))
+  ConfigFile.set('main',   'CurrentTime',       AdjustedTime)
+  ConfigFile.set('pacdot', 'PacDotHighScore',   str(gv.PacDotHighScore))
+  ConfigFile.set('pacdot', 'PacDotGamesPlayed', str(gv.PacDotHighScore))
+  ConfigFile.set('crypto', 'balance',           str(gv.CryptoBalance))
 
 
   print ("Writing configuration file")
@@ -5472,7 +5474,6 @@ def SaveConfigData():
     
 def LoadConfigData():
   
-  global PacDotHighScore
 
   print ("--Load Config Data--")
   print ("PacDotHighScore Before Load: ",gv.PacDotHighScore)
@@ -5488,9 +5489,11 @@ def LoadConfigData():
     CMD = "sudo date --set " + TheTime
     #os.system(CMD)
    
-    #Get high score data
-    PacDotHighScore = ConfigFile.get("pacdot","pacdothighscore")
-    print ("PacDotHighScore: ",gv.PacDotHighScore)
+    #Get pacdot data
+    gv.PacDotHighScore   = ConfigFile.get("pacdot","PacdotHighScore")
+    gv.PacDotGamesPlayed = int(ConfigFile.get("pacdot","PacdotGamesPlayed"))
+    print ("PacDotHighScore: ",  gv.PacDotHighScore)
+    print ("PacDotGamesPlayed: ",gv.PacDotGamesPlayed)
 
     #Get CryptoBalance
     gv.CryptoBalance = ConfigFile.get("crypto","balance")
@@ -7740,16 +7743,23 @@ def ScrollScreen(direction,ScreenCap,speed):
 # the DisplayScreenCap function
 
 
-def ZoomScreen(ScreenArray,ZoomStart,ZoomStop,ZoomSleep):    
+def ZoomScreen(ScreenArray,ZoomStart,ZoomStop,ZoomSleep,Fade=False):    
   #Capture the screen, then pass that to this function
   #Loop through the zoom levels specified, calling the DisplayScreenCap function
 
  
-  ZoomFActor = 0
-    
+  ZoomFactor    = 0
+  DimIncrement  = max(round(100 / abs(ZoomStart - ZoomStop)),1)
+  OldBrightness = gv.TheMatrix.brightness
+  Brightness    = OldBrightness
 
   if (ZoomStart <= ZoomStop):
     for ZoomFactor in range (ZoomStart,ZoomStop):
+      if (Fade == True):
+        Brightness = Brightness - DimIncrement
+        if (Brightness >= 0):
+          gv.TheMatrix.brightness = Brightness
+          print("Brightness:",Brightness)
       gv.TheMatrix.Clear()        
       DisplayScreenCap(ScreenArray,ZoomFactor)
       if (ZoomSleep > 0):
@@ -7758,12 +7768,18 @@ def ZoomScreen(ScreenArray,ZoomStart,ZoomStop,ZoomSleep):
   else:
     for ZoomFactor in reversed(range(ZoomStop, ZoomStart)):
       #clear the screen as we zoom to remove leftovers
+      if (Fade == True):
+        Brightness = Brightness - DimIncrement
+        if (Brightness >= 0):
+          gv.TheMatrix.brightness = Brightness
+          print("Brightness:",Brightness)
       gv.TheMatrix.Clear()        
-      DisplayScreenCap(ScreenArray,ZoomFactor )
+      DisplayScreenCap(ScreenArray,ZoomFactor)
       if (ZoomSleep > 0):
         time.sleep(ZoomSleep)
 
-
+  #go back to old brightness
+  gv.TheMatrix.brightness = OldBrightness
 
 
   # for y in range (gv.HatWidth):
@@ -7790,6 +7806,8 @@ def DisplayScreenCap(ScreenCap,ZoomFactor = 0):
   V = 0
   HIndentFactor = 0    
   VIndentFactor = 0    
+  
+ 
 
   #NewScreenCap = deepcopy.copy(ScreenCap)
 
