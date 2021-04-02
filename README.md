@@ -55,5 +55,5 @@ If the mother ship gets hit twice it gets angry and starts nuking.
 <BR>Raspberry Pi 3 and up
 <BR>Adafruit LED Matrix (64x32)
 <BR>Adafruit RGB Hat
-
+<BR>hzeller's RBG LED Matrix code: https://github.com/hzeller/rpi-rgb-led-matrix
 
