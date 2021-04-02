@@ -4716,7 +4716,7 @@ def PlaySuperWorms():
   #Local variables
   moves      = 0
   Finished   = 'N'
-  LevelCount = 3
+  LevelCount = 0
   HighScore  = 0
 
   maxtrail     = gv.StartMaxTrail
@@ -4796,6 +4796,10 @@ def PlaySuperWorms():
   cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 16,  Text = 'LIGHT CYCLE',RGB = cf.HighRed,    ShadowRGB = cf.ShadowRed,    ZoomFactor = 1,GlowLevels=200,DropShadow=True)
   cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 26,  Text = 'BY DATAGOD', RGB = cf.HighGreen,  ShadowRGB = cf.ShadowGreen,  ZoomFactor = 1,GlowLevels=200,DropShadow=True)
   time.sleep(1)
+  cf.EraseMessageArea(LinesFromBottom=6)
+  Message = cf.TronGetRandomMessage(MessageType = 'CHALLENGE')
+  cf.ShowScrollingBanner2(Message,(200,50,0),0.015,26)
+
   gv.TheMatrix.Clear()
   gv.Canvas.Clear()
   cf.ZoomScreen(gv.ScreenArray,32,256,0,Fade=True)
@@ -4804,16 +4808,20 @@ def PlaySuperWorms():
 
 
   
-  while (LevelCount > 0):
+  while (LevelCount < gv.SuperWormLevels):
     print ("Drawing Snake")
     #DrawSnake(0,0,(cf.MedOrange),3,1)
     #cf.ShowLevelCount(LevelCount)
-
-
-    LevelCount = LevelCount - 1
+    
+    
+    LevelCount = LevelCount + 1
     cf.ClearBigLED()
     CreateSuperWormMap(random.randint(0,1))
-
+    cf.EraseMessageArea(LinesFromBottom=5)
+    cf.DisplayScoreMessage(Message="Level " + str(LevelCount),RGB=cf.HighOrange,FillerRGB=(0,0,0))
+    time.sleep(1)
+    cf.EraseMessageArea(LinesFromBottom=5)
+    cf.DisplayScoreMessage(Message=str(LevelCount),RGB=cf.HighOrange,FillerRGB=(0,0,0))
 
     #Show Custom Sprite
     cf.CopySpriteToPixelsZoom(ClockSprite,      gv.ClockH,      gv.ClockV,      gv.ClockRGB,       gv.SpriteFillerRGB,1)
@@ -4850,7 +4858,7 @@ def PlaySuperWorms():
         Key = cf.PollKeyboard()
         ProcessKeypress(Key)
         if (Key == 'q'):
-          LevelCount    = 0
+          LevelCount    = gv.SuperWormLevels + 1
           LevelFinished = 'Y'
           return
         if (Key == 'n'):
@@ -4934,6 +4942,7 @@ def PlaySuperWorms():
       
 
       LevelFinished = 'Y'
+
       for i in range(0,gv.SuperWormCount):
         if (SuperWorms[i].alive == 1):
           LevelFinished = 'N'
@@ -4955,9 +4964,18 @@ def PlaySuperWorms():
       if (SleepTime >= gv.MinSleepTime):
         time.sleep(SleepTime)
 
-      
-    #cf.ShowScreenArray()
-    #time.sleep(3)
+    #get a random message to show at bottom of screen
+    Message = cf.TronGetRandomMessage()
+    cf.EraseMessageArea(LinesFromBottom=5)
+    cf.DisplayScoreMessage(Message=Message ,RGB=cf.HighOrange,FillerRGB=(20,0,0))
+    time.sleep(1.5)
+    cf.ZoomScreen(gv.ScreenArray,32,256,0,Fade=True)
+
+  cf.ShowGlowingText(CenterHoriz=True,h=0,v=0 ,Text= 'END',  RGB= cf.HighRed,ShadowRGB= cf.ShadowRed,ZoomFactor= 2,GlowLevels=55, DropShadow=False)
+  cf.ShowGlowingText(CenterHoriz=True,h=0,v=11,Text= 'OF',   RGB= cf.HighRed,ShadowRGB= cf.ShadowRed,ZoomFactor= 2,GlowLevels=55, DropShadow=False)
+  cf.ShowGlowingText(CenterHoriz=True,h=0,v=22,Text= 'LINE', RGB= cf.HighRed,ShadowRGB= cf.ShadowRed,ZoomFactor= 2,GlowLevels=55, DropShadow=False)
+  time.sleep(1)
+  cf.ZoomScreen(gv.ScreenArray,32,256,0,Fade=True)
 
 
 
@@ -15224,6 +15242,7 @@ def PlayPacDot(NumDots):
         cf.ShowGlowingText(CenterHoriz=True,h=0,v=8 ,Text= str(gv.PacDotHighScore),  RGB= cf.HighPurple, ShadowRGB= cf.ShadowPurple, ZoomFactor= 1,GlowLevels=100,FadeLevels=0,DropShadow=True)
         cf.ShowGlowingText(CenterHoriz=True,h=0,v=16,Text= 'GAMES PLAYED',           RGB= cf.HighOrange, ShadowRGB= cf.ShadowOrange, ZoomFactor= 1,GlowLevels=50, DropShadow=True)
         cf.ShowGlowingText(CenterHoriz=True,h=0,v=26,Text= str(gv.PacDotGamesPlayed),RGB= cf.HighPurple, ShadowRGB= cf.ShadowPurple, ZoomFactor= 1,GlowLevels=100,FadeLevels=0,DropShadow=True)
+        cf.EraseMessageArea(6)
         ThreeGhostSprite.ScrollAcrossScreen(0,26,'left',gv.ScrollSleep)
 
         gv.TheMatrix.Clear()
@@ -18009,6 +18028,7 @@ while (1==1):
     #Call the ZoomScreen function to redraw the display using ScreenArray[V][H] which at this point
     #contains the values last written to the screen.
 
+    Message = cf.TronGetRandomMessage()
 
     cf.ShowGlowingText(CenterHoriz = True,h = -8,v = 0,   Text = 'ARCADE', RGB = cf.HighGreen, ShadowRGB = cf.DarkGreen, ZoomFactor = 8,GlowLevels=0,DropShadow=False)
     gv.TheMatrix.Clear()
@@ -18031,6 +18051,8 @@ while (1==1):
     time.sleep(1)
     gv.TheMatrix.Clear()
     gv.Canvas.Clear()
+
+
 
     cf.ZoomScreen(gv.ScreenArray,32,1,0,Fade=True)
 

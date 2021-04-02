@@ -235,6 +235,7 @@ SuperWormStartMinH = 25
 SuperWormStartMaxH = 63
 SuperWormStartMinV = 0
 SuperWormStartMaxV = 25
+SuperWormLevels    = 3           #number of levels
 
 
 
@@ -271,7 +272,7 @@ MaxPlayerMissiles     = 5
 PlayerMissiles        = 2
 PlayerMissileSpeed    = 25
 PlayerMissileMinSpeed = 8
-PlayerShipLives       = 5
+PlayerShipLives       = 3
 
 
 #BomberShip

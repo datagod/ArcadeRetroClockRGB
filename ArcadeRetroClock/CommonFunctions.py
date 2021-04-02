@@ -1069,16 +1069,11 @@ class Sprite(object):
     #It is pretty fast now, seems just as fast as blanking whole screen using off() or clear()
     x = 0
     y = 0
-    #print ("Erase:",self.width, self.height, self.r, self.g, self.b,v1,h1)
     for count in range (0,(self.width * self.height)):
       y,x = divmod(count,self.width)
-      #print("Count:",count,"xy",x,y)
       if self.grid[count] == 1:
         if (CheckBoundary(x+h1,y+v1) == 0):
-          #gv.TheMatrix.SetPixel(x+h1,y+v1,0,0,0)
           gv.TheMatrix.SetPixel(x+h1,y+v1,0,0,0)
-    #unicorn.show()
-    #SendBufferPacket(RemoteDisplay,gv.HatHeight,gv.HatWidth)
 
   def HorizontalFlip(self):
     x = 0
@@ -1118,7 +1113,8 @@ class Sprite(object):
         if count >= 1:
           oldh = h - modifier
           #print ("Scroll:",self.width, self.height, self.r, self.g, self.b,h,v)
-          gv.TheMatrix.Clear()
+          #gv.TheMatrix.Clear()
+          self.Erase(oldh,v)  
 
         #draw new sprite
         self.Display(h,v)
@@ -5460,7 +5456,7 @@ def SaveConfigData():
 
   ConfigFile.set('main',   'CurrentTime',       AdjustedTime)
   ConfigFile.set('pacdot', 'PacDotHighScore',   str(gv.PacDotHighScore))
-  ConfigFile.set('pacdot', 'PacDotGamesPlayed', str(gv.PacDotHighScore))
+  ConfigFile.set('pacdot', 'PacDotGamesPlayed', str(gv.PacDotGamesPlayed))
   ConfigFile.set('crypto', 'balance',           str(gv.CryptoBalance))
 
 
@@ -6438,71 +6434,72 @@ def GetEthereumBalance():
   return CashBalance, CurrencyPrice, ETHWalletBalance
 
 
-def CreateCurrencySprite():   
+# Commented out April 1, 2021.  Please delete after April 5, 2021
+# def CreateCurrencySprite():   
   
 
-  #Use CoinGeckoAPI to check current Ethereum price in currency
-  print ("Get currency price")
-  ETHPrice = CoinGeckoAPI().get_price(ids='ethereum', vs_currencies='cad')
-  CurrencyPrice = float(('{}'.format(ETHPrice['ethereum']['cad'])))
+  # #Use CoinGeckoAPI to check current Ethereum price in currency
+  # print ("Get currency price")
+  # ETHPrice = CoinGeckoAPI().get_price(ids='ethereum', vs_currencies='cad')
+  # CurrencyPrice = float(('{}'.format(ETHPrice['ethereum']['cad'])))
   
-  #Get current balance
-  print ("Getting wallet balance")
-  url     = "https://mainnet.infura.io/v3/b426370b8d7d4847b57db1b1a8603938"
-  data    = {'jsonrpc':'2.0', 'id':1, 'method':'eth_getBalance', 'params':['0x3D15798193ecdc14217F431FC341fA81C70AAd45', 'latest']}
-  headers = {'Content-type': 'application/json'}
-  r       = requests.post(url, data=json.dumps(data), headers=headers)
+  # #Get current balance
+  # print ("Getting wallet balance")
+  # url     = "https://mainnet.infura.io/v3/b426370b8d7d4847b57db1b1a8603938"
+  # data    = {'jsonrpc':'2.0', 'id':1, 'method':'eth_getBalance', 'params':['0x3D15798193ecdc14217F431FC341fA81C70AAd45', 'latest']}
+  # headers = {'Content-type': 'application/json'}
+  # r       = requests.post(url, data=json.dumps(data), headers=headers)
 
-  r_dict  = json.loads(r.text)
+  # r_dict  = json.loads(r.text)
   
   
-  AccountBalance = str(float(int(r_dict['result'],0) / 1000000000000000000.0) * CurrencyPrice)
-  print ("Balance:",AccountBalance,"CDN")
+  # AccountBalance = str(float(int(r_dict['result'],0) / 1000000000000000000.0) * CurrencyPrice)
+  # print ("Balance:",AccountBalance,"CDN")
 
    
-  #get dollars
-  d1 = int(AccountBalance[0])
-  d2 = int(AccountBalance[1])
-  d3 = int(AccountBalance[2])
-  #get cents
-  c1 = int(AccountBalance[4])
-  c2 = int(AccountBalance[5])
+  # #get dollars
+  # d1 = int(AccountBalance[0])
+  # d2 = int(AccountBalance[1])
+  # d3 = int(AccountBalance[2])
+  # #get cents
+  # c1 = int(AccountBalance[4])
+  # c2 = int(AccountBalance[5])
 
 
-  ClockSprite = DigitSpriteList[d1]  
-  ClockSprite = JoinSprite(ClockSprite, DigitSpriteList[d2], 1)
-  ClockSprite = JoinSprite(ClockSprite, DigitSpriteList[d3], 1)
-  ClockSprite = JoinSprite(ClockSprite, DigitSpriteList[c1], 1)
+  # ClockSprite = DigitSpriteList[d1]  
+  # ClockSprite = JoinSprite(ClockSprite, DigitSpriteList[d2], 1)
+  # ClockSprite = JoinSprite(ClockSprite, DigitSpriteList[d3], 1)
+  # ClockSprite = JoinSprite(ClockSprite, DigitSpriteList[c1], 1)
     
 
-  ClockSprite.r = SDMedRedR
-  ClockSprite.g = SDMedRedG
-  ClockSprite.b = SDMedRedB
+  # ClockSprite.r = SDMedRedR
+  # ClockSprite.g = SDMedRedG
+  # ClockSprite.b = SDMedRedB
   
   
-  #add variables to the object (python allows this, very cool!)
-  ClockSprite.h = (gv.HatWidth - ClockSprite.width) // 2
-  ClockSprite.v = -4
-  ClockSprite.rgb = (SDMedGreenR,SDMedGreenG,SDMedGreenB)
-  ClockSprite.AccountBalance = AccountBalance[0:6]
+  # #add variables to the object (python allows this, very cool!)
+  # ClockSprite.h = (gv.HatWidth - ClockSprite.width) // 2
+  # ClockSprite.v = -4
+  # ClockSprite.rgb = (SDMedGreenR,SDMedGreenG,SDMedGreenB)
+  # ClockSprite.AccountBalance = AccountBalance[0:6]
 
-  #used for displaying clock
-  ClockSprite.StartTime = time.time()
+  # #used for displaying clock
+  # ClockSprite.StartTime = time.time()
 
-  #used for scrolling clock
-  ClockSprite.PauseStartTime = time.time()
-  ClockSprite.IsScrolling     = 0
-  ClockSprite.Delay           = 2
-  ClockSprite.PausePositionV  = 1
-  ClockSprite.PauseTimerOn    = 0
-
-  
-  ClockSprite.on = 1
-  ClockSprite.DirectionIncrement = 1
-  ClockSprite.name = 'Currency'
+  # #used for scrolling clock
+  # ClockSprite.PauseStartTime = time.time()
+  # ClockSprite.IsScrolling     = 0
+  # ClockSprite.Delay           = 2
+  # ClockSprite.PausePositionV  = 1
+  # ClockSprite.PauseTimerOn    = 0
 
   
-  return ClockSprite 
+  # ClockSprite.on = 1
+  # ClockSprite.DirectionIncrement = 1
+  # ClockSprite.name = 'Currency'
+
+  
+  # return ClockSprite 
 
 
 
@@ -6762,7 +6759,7 @@ def CreateBannerSprite(TheMessage):
   #We need to dissect the message and build our banner sprite one letter at a time
   #We need to initialize the banner sprite object first, so we pick the first letter
   x = -1
-  
+  TheMessage = TheMessage.upper()
   BannerSprite = Sprite(1,5,0,0,0,[0,0,0,0,0])
   
   #Iterate through the message, decoding each characater
@@ -8212,6 +8209,34 @@ def DisplayScore(score,rgb):
 
 
 
+
+
+
+def DisplayScoreMessage(h=0,v=0,Message='TEST',RGB=(100,100,100),FillerRGB=(0,0,0)):
+
+  r,g,b    = RGB
+  fr,fg,fb = FillerRGB
+  ScoreH   = h
+  ScoreV   = v
+
+
+
+  #Display a message where the scoreboard is (lower right corner)
+  ScoreMessage = CreateBannerSprite(str(Message.upper()))
+  
+  if (ScoreH == 0):
+    ScoreH      = gv.HatWidth  - ScoreMessage.width
+  if (ScoreV == 0):
+    ScoreV      = gv.HatHeight - ScoreMessage.height
+  ScoreMessage.r = r
+  ScoreMessage.g = g
+  ScoreMessage.b = b
+  #ScoreMessage.DisplayIncludeBlack(ScoreH,ScoreV)
+  CopySpriteToPixelsZoom(ScoreMessage,ScoreH,ScoreV, ColorTuple=(RGB),FillerTuple=(FillerRGB),ZoomFactor = 1,Fill=True)
+
+
+
+
 def DisplayLevel(level,rgb):
 
   r,g,b = rgb
@@ -8431,4 +8456,65 @@ def CenterSpriteOnShip(Sprite,Ship):
         
 
 
+def TronGetRandomMessage(MessageType = 'TAUNT'):
+  
 
+  if (MessageType == 'TAUNT'):
+    MessageList = ('NICE TRY',
+                   'YOU FAIL',
+                   'NOOOO!',
+                   'HA HA!',
+                   'AGAIN ?',
+                   'LOSER!',
+                   'YOU LOSE',
+                   'YOU DIED',
+                   'PLAYER!!!',
+                   'GOT EM',
+                   'THEY ESCAPED!',
+                   'AFTER THEM!',
+                   'YOU WILL FAIL',
+                   'FIX THAT WALL',
+                   'WHAT???',
+                   'NEVER GIVE UP',
+                   'THAT STINKS!',
+                   'SYNTAX ERROR',
+                   'NOT NICE!',
+                   'STOPSTOPSTOP'
+      )
+  elif (MessageType == 'CHALLENGE'):
+    MessageList = ('DO YOU FIGHT FOR THE PLAYER?',
+                   'DO YOU FIGHT FOR MCP?',
+                   'WELCOME TO THE CIRCUITBOARD',
+                   'ARE YOU A USER?',
+                   'ARE YOU READY FOR THE CHALLENGE?',
+                   'WITNESS THE MIGHT OF MCP!',
+                   'GET YOUR JETBIKE READY',
+                   'RUN HIM INTO THE JETWALLS!',
+                   'THIS CLOCK FULLY ARMED AND OPERATIONAL',
+                   'SIT FACING THE SCREEN LOGAN 5',
+                   'GET READY',
+                   'DESERVE VICTORY!',
+                   'FIGHT FOR THE USER!',
+                   'FIGHT FOR MCP!',
+                   'THERE IS NO SANCTUARY...',
+                   'SOYLENT GREEN IS....TASTY!'
+      )
+  
+  
+  ListCount = len(MessageList)
+  print(ListCount)
+  print("ListCount:",ListCount)
+  i = 0
+  Message = ''
+  #Message = MessageList(random.randint(0,ListCount-1))
+  Message = random.choice(MessageList)
+  print("Message:",Message)
+  return Message
+
+
+
+
+def EraseMessageArea(LinesFromBottom = 5):
+  for x in range (0,gv.HatWidth-1):
+    for y in range (gv.HatHeight-LinesFromBottom,gv.HatHeight):
+      setpixel(x,y,0,0,0)
