@@ -7756,7 +7756,7 @@ def ZoomScreen(ScreenArray,ZoomStart,ZoomStop,ZoomSleep,Fade=False):
         Brightness = Brightness - DimIncrement
         if (Brightness >= 0):
           gv.TheMatrix.brightness = Brightness
-          print("Brightness:",Brightness)
+          #print("Brightness:",Brightness)
       gv.TheMatrix.Clear()        
       DisplayScreenCap(ScreenArray,ZoomFactor)
       if (ZoomSleep > 0):
@@ -7769,7 +7769,7 @@ def ZoomScreen(ScreenArray,ZoomStart,ZoomStop,ZoomSleep,Fade=False):
         Brightness = Brightness - DimIncrement
         if (Brightness >= 0):
           gv.TheMatrix.brightness = Brightness
-          print("Brightness:",Brightness)
+          #print("Brightness:",Brightness)
       gv.TheMatrix.Clear()        
       DisplayScreenCap(ScreenArray,ZoomFactor)
       if (ZoomSleep > 0):
@@ -8518,3 +8518,18 @@ def EraseMessageArea(LinesFromBottom = 5):
   for x in range (0,gv.HatWidth-1):
     for y in range (gv.HatHeight-LinesFromBottom,gv.HatHeight):
       setpixel(x,y,0,0,0)
+
+
+
+def IsSpotEmpty(h,v):
+  r,g,b = getpixel(h,v)
+  if (r > 0 or g > 0 or b > 0):
+    return False
+  else:
+    return True
+
+
+  
+
+  
+

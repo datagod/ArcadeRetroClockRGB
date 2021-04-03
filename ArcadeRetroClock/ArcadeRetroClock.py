@@ -4584,7 +4584,7 @@ def CreateSuperWormMap(MapLevel):
   SuperWormMap[0].ColorList = {
     ' ' : (0,0,0),
     'O' : cf.WallRGB,
-    '-' : (0,4,0),
+    '-' : (0,50,0),
     '|' : cf.WallRGB
   }
 
@@ -4600,33 +4600,33 @@ def CreateSuperWormMap(MapLevel):
 
 
   SuperWormMap[0].map= (
-    #0........1.........2.........3.........4.........5.........6....64    
-    "                -                                                ", #0  
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ", #10
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ", #20
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
+    #0.........1.........2.........3.........4.........5.........6...64    
+    "                ------------------------------------------------", #0  
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -", #10
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -", #20
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
     "                -------------------------------------------------",
     "                                                                 ",
     "                                                                 ",
@@ -4636,7 +4636,7 @@ def CreateSuperWormMap(MapLevel):
     "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" #32
   )
 
-  #Create maze 0
+  #Create maze 1
   SuperWormMap.append(cf.Maze(
     h      = 0,
     v      = 0,
@@ -4646,9 +4646,12 @@ def CreateSuperWormMap(MapLevel):
   )
   SuperWormMap[1].ColorList = {
     ' ' : (0,0,0),
-    'O' : cf.WallRGB,
-    '-' : (0,4,0),
-    '|' : cf.WallRGB
+    'O' : (0,0,95),
+    '-' : (0,50,10),
+    '|' : cf.WallRGB,
+    '.' : (90,90,90),
+    'o' : (220,0,0),
+    'x' : ( 0, 0,40)
   }
 
 
@@ -4656,50 +4659,410 @@ def CreateSuperWormMap(MapLevel):
     ' ' : 'EmptyObject',
     'O' : 'wall',
     '-' : 'wall',
-    '|' : 'wall'
+    '|' : 'wall',
+    '.' : 'wall',
+    'x' : 'wall'
 
   }
 
 
 
   SuperWormMap[1].map= (
-    #0........1.........2.........3.........4.........5.........6....64    
-    "                -                                                ", #0  
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -              OOOOOOOOOOOOOOOOOOO               ",
-    "                -              O                 O               ",
-    "                -              O                 O               ",
-    "                -              OOOOOOOO   OOOOOOOO               ",
-    "                -                     O   O                      ", #10
-    "                -                     O   O                      ",
-    "                -                     O   O                      ",
-    "                -                     O   O                      ",
-    "                -                     O   O                      ",
-    "                -                     OOOOO                      ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -           OOOOOOOOOOOOOOOOOOOOOOOOOOO          ", #20
-    "                -           O                         O          ",
-    "                -           OOOOOOOOOOOOOOOOOOOOOOOOOOO          ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -                                                ",
-    "                -------------------------------------------------",
-    "                                                                 ",
-    "                                                                 ",
-    "                                                                 ",
-    "                                                                 ", #30
-    "                                                                 ",
-    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" #32
+    #0.........1.........2.........3.........4.........5.........6...64    
+    "                ------------------------------------------------", #0  
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -              OOOOOOOOOOOOOOOOOOO             -",
+    "                -              Oxx...xxxxxxx...xxO             -",
+    "                -              Oxx.o.xxxxxxx.o.xxO             -",
+    "                -              Oxx...xxxxxxx...xxO             -",
+    "                -              OOOOOOOOxxxOOOOOOOO             -",
+    "                -                     OOOOO                    -", #10
+    "                -                                              -",
+    "                -                                              -",
+    "                -                     OOOOO                    -",
+    "                -                     OxxxO                    -",
+    "                -                     OOOOO                    -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                   OOOOOOOO                   -",
+    "                -              OOOOO........OOOOOO             -", #20
+    "                -              O.................O             -",
+    "                -              O..OOOOOOOOOOOOO..O             -",
+    "                -              OOO             OOO             -",
+    "                -                                              -",
+    "                -                                              -",
+    "                ------------------------------------------------",
+    "                                                                ",
+    "                                                                ",
+    "                                                                ",
+    "                                                                ", #30
+    "                                                                ",
+    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" #32
   )
 
+
+
+  #Create maze 2
+  SuperWormMap.append(cf.Maze(
+    h      = 0,
+    v      = 0,
+    width  = 64, 
+    height = 32
+    )
+  )
+  SuperWormMap[2].ColorList = {
+    ' ' : (0,0,0),
+    'O' : (0,0,55),
+    '-' : (0,0,50),
+    '|' : cf.WallRGB,
+    '.' : ( 50,  0,  0),
+    'o' : (200,  0,  0),
+    'x' : (100,  0,  0),
+    '#' : (220,  0,  0),
+  }
+
+
+  SuperWormMap[2].TypeList = {
+    ' ' : 'EmptyObject',
+    'O' : 'wall',
+    '-' : 'wall',
+    '|' : 'wall',
+    '.' : 'wall',
+    'x' : 'wall',
+    '#' : 'wall'
+
+  }
+
+
+
+  SuperWormMap[2].map= (
+    #0.........1.........2.........3.........4.........5.........6...64    
+    "                ------------------------------------------------", #0  
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                     xx                       -",
+    "                -                    x##x                      -",
+    "                -             xxxxxxxxxxxxxxxxxx               -",
+    "                -              x..............x                -",
+    "                -              x..............x                -",
+    "                -             xxxxxxxxxxxxxxxxxx               -",
+    "                -              x..x        x..x                -", #10
+    "                -              x..x        x..x                -",
+    "                -              x..x        x..x                -",
+    "                -              xxxx        xxxx                -",
+    "                -              x..x        x..x                -",
+    "                -              x..x        x..x                -",
+    "                -              x..x        x..x                -",
+    "                -              x..x        x..x                -",
+    "                -              x...x      x...x                -",
+    "                -              xxxxxx    xxxxxx                -",
+    "                -                                              -", #20
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                ------------------------------------------------",
+    "                                                                ",
+    "                                                                ",
+    "                                                                ",
+    "                                                                ", #30
+    "                                                                ",
+    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" #32
+  )
   
+
+#Create maze 3
+  SuperWormMap.append(cf.Maze(
+    h      = 0,
+    v      = 0,
+    width  = 64, 
+    height = 32
+    )
+  )
+  SuperWormMap[3].ColorList = {
+    ' ' : (0,0,0),
+    'O' : (0,0,55),
+    '-' : (70,0, 0),
+    '|' : cf.WallRGB,
+    '.' : ( 50,  0,  0),
+    'o' : (200,  0,  0),
+    'x' : (100,  0,  0),
+    '#' : (200,  0,  0),
+    'X' : (  0,  0,220)
+  }
+
+
+  SuperWormMap[3].TypeList = {
+    ' ' : 'EmptyObject',
+    'O' : 'wall',
+    '-' : 'wall',
+    '|' : 'wall',
+    '.' : 'wall',
+    'x' : 'wall',
+    '#' : 'wall',
+    'X' : 'wall'
+
+  }
+
+
+
+  SuperWormMap[3].map= (
+    #0........1.........2.........3.........4.........5.........6...64    
+    "                    ----------------------------------------    ", #0  
+    "                   -                                        -   ",
+    "                  -                                          -  ",
+    "                 -                                            - ",
+    "                -                     xx                       -",
+    "                -                    xXXx                      -",
+    "                -             xxxxxxxxxxxxxxxxxx               -",
+    "                -              x..............x                -",
+    "                -              x..............x                -",
+    "                -             xxxxxxxxxxxxxxxxxx               -",
+    "                -              x..x        x..x                -", #10
+    "                -              x..x        x..x                -",
+    "                -              x..x        x..x                -",
+    "                -              xxxx        xxxx                -",
+    "                -              x..x        x..x                -",
+    "                -              x..x        x..x                -",
+    "                -              x..x        x..x                -",
+    "                -              x..x        x..x                -",
+    "                -              x...x      x...x                -",
+    "                -              xxxxxx    xxxxxx                -",
+    "                -                                              -", #20
+    "                -                                              -",
+    "                -                                              -",
+    "                 -                                            - ",
+    "                  -                                          -  ",
+    "                   -                                        -   ",
+    "                    ----------------------------------------    ",
+    "                                                                ",
+    "                                                                ",
+    "                                                                ",
+    "                                                                ", #30
+    "                                                                ",
+    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" #32
+  )
+  
+
+
+#Create maze 4
+  SuperWormMap.append(cf.Maze(
+    h      = 0,
+    v      = 0,
+    width  = 64, 
+    height = 32
+    )
+  )
+  SuperWormMap[4].ColorList = {
+    ' ' : (0,0,0),
+    'O' : (0,0,55),
+    '-' : (0,0,50),
+    '|' : cf.WallRGB,
+    '.' : ( 60, 35,  0),
+    ',' : ( 25, 15,  0),
+    'x' : (100,  0,  0),
+    '#' : (200,  0,  0),
+    'X' : (  0,  0,220),
+    'p' : (cf.MedPink),
+    'c' : (cf.MedCyan),
+    'o' : (cf.MedOrange),
+    'b' : (cf.MedBlue),
+    'g' : (cf.MedGreen),
+    'y' : (cf.MedYellow)
+  }
+
+
+  SuperWormMap[4].TypeList = {
+    ' ' : 'EmptyObject',
+    'O' : 'wall',
+    '-' : 'wall',
+    '|' : 'wall',
+    '.' : 'wall',
+    ',' : 'wall',
+    'x' : 'wall',
+    '#' : 'wall',
+    'X' : 'wall',
+    'p' : 'wall',
+    'c' : 'wall',
+    'o' : 'wall',
+    'b' : 'wall',
+    'g' : 'wall',
+    'y' : 'wall'
+
+  }
+
+
+
+  SuperWormMap[4].map= (
+    #0.........1.........2.........3.........4.........5.........6...64    
+    "                ------------------------------------------------", #0  
+    "                -                                              -",
+    "                -                       ,                      -",
+    "                -                     . , .                    -",
+    "                -                 ...,.,.., . ,                -",
+    "                -               . .,. . ., .,. .               -",
+    "                -             yp ., .,. . . .,. yp             -",
+    "                -             yppp ,,..,.,.,. yyyp             -",
+    "                -             ypppcc. . , . ggyyyp             -",
+    "                -             ypppccco,.,,bgggyyyp             -",
+    "                -             ypppcccooobbbgggyyyp             -", #10
+    "                -             ypppcccooobbbgggyyyp             -",
+    "                -             ypppcccooobbbgggyyyp             -",
+    "                -             ypppcccooobbbgggyyyp             -",
+    "                -             ypppcccooobbbgggyyyp             -",
+    "                -             ypppcccooobbbgggyyyp             -",
+    "                -             ypppcccooobbbgggyyyp             -",
+    "                -             ypppcccooobbbgggyyyp             -",
+    "                -               ppcccooobbbgggyy               -",
+    "                -                  ccooobbbgg                  -",
+    "                -                     oobb                     -", #20
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                -                                              -",
+    "                ------------------------------------------------",
+    "                                                                ",
+    "                                                                ",
+    "                                                                ",
+    "                                                                ", #30
+    "                                                                ",
+    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" #32
+  )
+  
+#Create maze 5
+  SuperWormMap.append(cf.Maze(
+    h      = 0,
+    v      = 0,
+    width  = 64, 
+    height = 32
+    )
+  )
+  SuperWormMap[5].ColorList = {
+    ' ' : (0,0,0),
+    '`' : (0,0,0),
+    'O' : (0,0,55),
+    '-' : (30,0,75),
+    '|' : cf.WallRGB,
+    '.' : ( 60, 35,  0),
+    ',' : ( 25, 15,  0),
+    'x' : (100,  0,  0),
+    '#' : (200,  0,  0),
+    'X' : (  0,  0,220),
+    'p' : (cf.MedPink),
+    'c' : (cf.MedCyan),
+    'o' : (cf.MedOrange),
+    'b' : (cf.MedBlue),
+    'g' : (cf.MedGreen),
+    'y' : (cf.MedYellow)
+  }
+
+
+  SuperWormMap[5].TypeList = {
+    ' ' : 'EmptyObject',
+    '`' : 'wall',
+    'O' : 'wall',
+    '-' : 'wall',
+    '|' : 'wall',
+    '.' : 'wall',
+    ',' : 'wall',
+    'x' : 'wall',
+    '#' : 'wall',
+    'X' : 'wall',
+    'p' : 'wall',
+    'c' : 'wall',
+    'o' : 'wall',
+    'b' : 'wall',
+    'g' : 'wall',
+    'y' : 'wall'
+
+  }
+
+
+
+
+  SuperWormMap[5].map= (
+    #0.........1.........2.........3.........4.........5.........6...64    
+    "                ```````````````-------------------``````````````", #0  
+    "                ``````````````-ooooooooooooooooooo-`````````````",
+    "                ``````````````-o---------------- o-`````````````",
+    "                ``````````````-o-               -o-`````````````",
+    "                ``````````````-o-               -o-`````````````",
+    "                `-------------o-                 -o------------`",
+    "                -ooooooooooooo-                   -oooooooooooo-",
+    "                -o------------                     -----------o-",
+    "                -o-                                          -o-",
+    "                -o-                                          -o-",
+    "                -o-                                          -o-", #10
+    "                -o-                                          -o-",
+    "                -o-                                          -o-",
+    "                -o-                                          -o-",
+    "                -o-                                          -o-",
+    "                -o-                                          -o-",
+    "                -o-                                          -o-",
+    "                -o-                                          -o-",
+    "                -o-                                          -o-",
+    "                -o------------                     -----------o-",
+    "                -ooooooooooooo-                   -oooooooooooo-", #20
+    "                `-------------o-                 -o------------ ",
+    "                ``````````````-o-               -o-`````````````",
+    "                ``````````````-o-               -o-`````````````",
+    "                ``````````````-o-----------------o-`````````````",
+    "                ``````````````-ooooooooooooooooooo-`````````````",
+    "                ```````````````-------------------``````````````",
+    "                                                                ",
+    "                                                                ",
+    "                                                                ",
+    "                                                                ", #30
+    "                                                                ",
+    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" #32
+  )
+
+
+  # SuperWormMap[4].map= (
+    # #0.........1.........2.........3.........4.........5.........6...64    
+    # "                ------------------------------------------------", #0  
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -", #10
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -", #20
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                -                                              -",
+    # "                ------------------------------------------------",
+    # "                                                                ",
+    # "                                                                ",
+    # "                                                                ",
+    # "                                                                ", #30
+    # "                                                                ",
+    # "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" #32
+  # )
+
+
   
   SuperWormMap[MapLevel].LoadMap()
 
@@ -4718,6 +5081,7 @@ def PlaySuperWorms():
   Finished   = 'N'
   LevelCount = 0
   HighScore  = 0
+  SuperWormMapCount = 5
 
   maxtrail     = gv.StartMaxTrail
   SpeedUpSpeed = gv.SpeedUpSpeed
@@ -4753,9 +5117,20 @@ def PlaySuperWorms():
     startspeed = random.randint(gv.StartSpeedHigh,gv.StartSpeedLow)
     alive      = 1
     name       = 'Superworm - ' + str(i)
+    
+    SpotFound = False
     h          = random.randint(30,63)
     v          = random.randint(0,31)
-    SuperWorms.append(cf.Dot(h,v,r,g,b,direction,startspeed,alive,name,(0,0),0, gv.StartMaxTrail,gv.EraseSpeed,(r,g,b)))
+
+    while (SpotFound == False):
+      if (cf.IsSpotEmpty(h,v) == True):
+        SuperWorms.append(cf.Dot(h,v,r,g,b,direction,startspeed,alive,name,(0,0),0, gv.StartMaxTrail,gv.EraseSpeed,(r,g,b)))
+        SpotFound = True
+      else:
+        h  = random.randint(30,63)
+        v  = random.randint(0,31)
+
+
     
 
       
@@ -4816,12 +5191,13 @@ def PlaySuperWorms():
     
     LevelCount = LevelCount + 1
     cf.ClearBigLED()
-    CreateSuperWormMap(random.randint(0,1))
+    CreateSuperWormMap(random.randint(0,SuperWormMapCount-1))
+    
     cf.EraseMessageArea(LinesFromBottom=5)
     cf.DisplayScoreMessage(Message="Level " + str(LevelCount),RGB=cf.HighOrange,FillerRGB=(0,0,0))
     time.sleep(1)
     cf.EraseMessageArea(LinesFromBottom=5)
-    cf.DisplayScoreMessage(Message=str(LevelCount),RGB=cf.HighOrange,FillerRGB=(0,0,0))
+    cf.DisplayScoreMessage(h=30,Message=str(LevelCount),RGB=cf.HighOrange,FillerRGB=(0,0,0))
 
     #Show Custom Sprite
     cf.CopySpriteToPixelsZoom(ClockSprite,      gv.ClockH,      gv.ClockV,      gv.ClockRGB,       gv.SpriteFillerRGB,1)
@@ -4862,7 +5238,7 @@ def PlaySuperWorms():
           LevelFinished = 'Y'
           return
         if (Key == 'n'):
-          CreateSuperWormMap(random.randint(0,1))      
+          CreateSuperWormMap(random.randint(0,SuperWormMapCount-1))
       #Show clock
       m,r = divmod(moves,CheckClockSpeed)
       if (r == 0):
