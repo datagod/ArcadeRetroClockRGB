@@ -8225,7 +8225,7 @@ def DisplayScoreMessage(h=0,v=0,Message='TEST',RGB=(100,100,100),FillerRGB=(0,0,
   ScoreMessage = CreateBannerSprite(str(Message.upper()))
   
   if (ScoreH == 0):
-    ScoreH      = gv.HatWidth  - ScoreMessage.width
+    ScoreH      = (gv.HatWidth  - ScoreMessage.width) // 2
   if (ScoreV == 0):
     ScoreV      = gv.HatHeight - ScoreMessage.height
   ScoreMessage.r = r
@@ -8479,7 +8479,20 @@ def TronGetRandomMessage(MessageType = 'TAUNT'):
                    'THAT STINKS!',
                    'SYNTAX ERROR',
                    'NOT NICE!',
-                   'STOPSTOPSTOP'
+                   'STOPSTOPSTOP',
+                   'ILLEGAL STOP',
+                   'FULL STOP',
+                   'DO NOT RUN',
+                   'BUT WHY?',
+                   'THAT WAS FUN',
+                   'TRY AGAIN?',
+                   'COME BACK!',
+                   'NO ESCAPE',
+                   'NOT TODAY!',
+                   'GET THEM',
+                   'ALERT!',
+                   'IS IT SAFE?'
+                   
       )
   elif (MessageType == 'CHALLENGE'):
     MessageList = ('DO YOU FIGHT FOR THE PLAYER?',
@@ -8497,7 +8510,17 @@ def TronGetRandomMessage(MessageType = 'TAUNT'):
                    'FIGHT FOR THE USER!',
                    'FIGHT FOR MCP!',
                    'THERE IS NO SANCTUARY...',
-                   'SOYLENT GREEN IS....TASTY!'
+                   'SOYLENT GREEN IS....TASTY!',
+                   'THIS IS NOT AN ALERT',
+                   'WELCOME TO THE REAL WORLD NEO',
+                   'PREPARE YOURSELF FOR BATTLE!',
+                   'GET ON YOUR BIKES AND RIDE!',
+                   'ANOTHER WARRIOR FOR MY ASMUSEMENT!',
+                   'DO YOU DARE TO ENTER THE ARENA?',
+                   'YOUR JET BIKE HAS A FLAT TIRE'
+                   
+
+                   
       )
   
   

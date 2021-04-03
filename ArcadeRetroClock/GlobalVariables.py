@@ -22,7 +22,7 @@
 MainSleep        = 0
 FlashSleep       = 0
 PacSleep         = 0.01
-#ScrollSleep      = 0
+ScrollSleep      = 0.03
 TinyClockStartHH = 0
 TinyClockHours   = 0
 CPUModifier      = 0
