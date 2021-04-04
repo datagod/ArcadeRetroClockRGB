@@ -201,7 +201,8 @@ ClockOffDuration = CheckTime - ClockOnDuration
 ClockSlideSpeed  = 1 
 CheckClockSpeed  = 500
 
-
+BrightRGB = (0,200,0)
+ShadowRGB = (0,5,0)
 
 #apply CPU modifier
 #VirusTopSpeed     = VirusTopSpeed    * gv.CPUModifier
@@ -5196,8 +5197,12 @@ def PlaySuperWorms():
   cf.ClearBuffers()
   cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 0,   Text = 'TRON',       RGB = cf.HighBlue,   ShadowRGB = cf.ShadowBlue,   ZoomFactor = 2,GlowLevels=50, DropShadow=True)
   cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 16,  Text = 'LIGHT CYCLE',RGB = cf.HighRed,    ShadowRGB = cf.ShadowRed,    ZoomFactor = 1,GlowLevels=200,DropShadow=True)
-  cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 26,  Text = 'BY DATAGOD', RGB = cf.HighGreen,  ShadowRGB = cf.ShadowGreen,  ZoomFactor = 1,GlowLevels=200,DropShadow=True)
-  time.sleep(1)
+
+  
+  BrightRGB, ShadowRGB = cf.GetBrightAndShadowRGB()
+  Message = cf.TronGetRandomMessage(MessageType = 'SHORTGAME')
+  cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 26,  Text = Message, RGB = BrightRGB,  ShadowRGB = ShadowRGB,  ZoomFactor = 1,GlowLevels=200,DropShadow=True,FadeLevels=200)
+
   cf.EraseMessageArea(LinesFromBottom=6)
   Message = cf.TronGetRandomMessage(MessageType = 'CHALLENGE')
   cf.ShowScrollingBanner2(Message,(200,50,0),gv.ScrollSleep,26)
@@ -5399,8 +5404,8 @@ def PlaySuperWorms():
   Finalb      = SuperWorms[WinningSuperWorm].b 
   FinalRGB    = (Finalr,Finalg,Finalb)
   
-  #gv.TheMatrix.Clear()
-  #cf.ClearBuffers()
+  gv.TheMatrix.Clear()
+  cf.ClearBuffers()
   #cf.ShowGlowingText(CenterHoriz=True,h=0,v=1 ,Text= 'FINAL',      RGB= cf.HighRed,    ShadowRGB= cf.ShadowRed,    ZoomFactor= 2,GlowLevels=150, DropShadow=True)
   #cf.ShowGlowingText(CenterHoriz=True,h=0,v=12,Text= 'SCORE',      RGB= cf.HighRed,    ShadowRGB= cf.ShadowRed,    ZoomFactor= 2,GlowLevels=150, DropShadow=True)
   #cf.ShowGlowingText(CenterHoriz=True,h=0,v=26,Text= FinalScore,   RGB= FinalRGB,      ShadowRGB= (15,15,15),      ZoomFactor= 1,GlowLevels=150, FadeLevels=150,DropShadow=True)
@@ -7083,7 +7088,9 @@ def PlaySpaceDot():
   cf.ClearBuffers()
   cf.ShowGlowingText(CenterHoriz = True,h = -8,v = 0,   Text = 'ASTRO',      RGB = cf.HighGreen,  ShadowRGB = cf.ShadowGreen,  ZoomFactor = 2,GlowLevels=200,DropShadow=False)
   cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 12,  Text = 'SMASH!',     RGB = (255,0,0),     ShadowRGB = cf.ShadowRed,    ZoomFactor = 2,GlowLevels=50,DropShadow=True)
-  cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 26,  Text = 'BY DATAGOD', RGB = cf.HighBlue,   ShadowRGB = cf.ShadowBlue,   ZoomFactor = 1,GlowLevels=200,DropShadow=True)
+  RGB = cf.BrightColorList[random.randint(1,gv.BrightColorCount)]
+  Message = cf.TronGetRandomMessage(MessageType = 'SHORTGAME')
+  cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 26,  Text = Message, RGB = BrightRGB,  ShadowRGB = ShadowRGB,  ZoomFactor = 1,GlowLevels=200,DropShadow=True,FadeLevels=200)
   time.sleep(1)
   gv.TheMatrix.Clear()
   gv.Canvas.Clear()
@@ -14654,7 +14661,10 @@ def PlayPacDot(NumDots):
   cf.ClearBuffers()
   cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 1,   Text = 'PAKDOT',     RGB = cf.HighYellow, ShadowRGB = cf.ShadowYellow, ZoomFactor = 2,GlowLevels=50, DropShadow=True)
   cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 16,  Text = 'EAT EM UP',  RGB = cf.HighRed,    ShadowRGB = cf.ShadowRed,    ZoomFactor = 1,GlowLevels=200,DropShadow=True)
-  cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 26,  Text = 'BY DATAGOD', RGB = cf.HighPurple, ShadowRGB = cf.ShadowPurple, ZoomFactor = 1,GlowLevels=100,FadeLevels=50,DropShadow=True)
+
+  RGB = cf.BrightColorList[random.randint(1,gv.BrightColorCount)]
+  Message = cf.TronGetRandomMessage(MessageType = 'SHORTGAME')
+  cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 26,  Text = Message, RGB = BrightRGB,  ShadowRGB = ShadowRGB,  ZoomFactor = 1,GlowLevels=200,DropShadow=True,FadeLevels=200)
   
   ThreeGhostPacSprite.ScrollAcrossScreen(0,26,'right',gv.ScrollSleep)
   ThreeBlueGhostPacSprite.ScrollAcrossScreen(gv.HatWidth,26,'left',gv.ScrollSleep)
@@ -16765,8 +16775,12 @@ def PlayOutbreak():
   gv.TheMatrix.Clear()
   cf.ClearBuffers()
   cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 1,   Text = 'UTBR8K',      RGB = cf.HighYellow, ShadowRGB = cf.ShadowYellow, ZoomFactor = 2,GlowLevels=50, DropShadow=True)
-  cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 16,  Text = 'A VIRUS GAME',RGB = cf.HighRed,    ShadowRGB = cf.ShadowRed,    ZoomFactor = 1,GlowLevels=200,DropShadow=True)
-  cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 26,  Text = 'BY DATAGOD',  RGB = cf.HighGreen,  ShadowRGB = cf.ShadowGreen, ZoomFactor = 1,GlowLevels=100,FadeLevels=50,DropShadow=True)
+  cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 16,  Text = 'UNLEASHED'   ,RGB = cf.HighRed,    ShadowRGB = cf.ShadowRed,    ZoomFactor = 1,GlowLevels=200,DropShadow=True)
+
+  RGB = cf.BrightColorList[random.randint(1,gv.BrightColorCount)]
+  Message = cf.TronGetRandomMessage(MessageType = 'SHORTGAME')
+  RGB = cf.BrightColorList[random.randint(1,gv.BrightColorCount)]
+  cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 26,  Text = Message, RGB = BrightRGB,  ShadowRGB = ShadowRGB,  ZoomFactor = 1,GlowLevels=200,DropShadow=True,FadeLevels=200)
   
   ThreeGhostPacSprite.ScrollAcrossScreen(0,26,'right',gv.ScrollSleep)
   ThreeBlueGhostPacSprite.ScrollAcrossScreen(gv.HatWidth,26,'left',gv.ScrollSleep)

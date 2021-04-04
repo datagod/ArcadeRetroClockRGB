@@ -30,7 +30,7 @@ Gamma            = 0
 HatWidth         = 64
 HatHeight        = 32
 KeyboardPoll     = 10
-
+BrightColorCount = 27
 
 
 #-----------------------------

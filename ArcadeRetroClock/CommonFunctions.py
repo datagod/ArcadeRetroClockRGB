@@ -610,9 +610,46 @@ ColorList.append((255,  0,255))  #MAX-PURPLE 43
 ColorList.append((  0,255,255))  #MAX-CYAN   44
 ColorList.append((255,255,255))  #MAX-WHITE  45
 
-#max oragne is 20
+#max orange is 20
 
 ColorList.append((SDMaxCyanR,SDMaxCyanG,SDMaxCyanB))
+
+
+
+GlowingTextRGB   = []
+GlowingShadowRGB = []
+
+GlowingTextRGB.append((250,250,250)) #WHITE
+GlowingTextRGB.append((200,  0,  0)) #RED
+GlowingTextRGB.append((  0,200,  0)) #Green
+GlowingTextRGB.append((  0,  0,200)) #Blue
+GlowingTextRGB.append((200,200,  0)) #Yellow
+GlowingTextRGB.append((200,  0,200)) #Purple
+GlowingTextRGB.append((  0,200,200)) #Cyan
+GlowingTextRGB.append((200,100,200)) #Orange
+
+GlowingShadowRGB.append(( 20, 20, 20)) #WHITE
+GlowingShadowRGB.append(( 20,  0,  0)) #RED
+GlowingShadowRGB.append((  0, 20,  0)) #Green
+GlowingShadowRGB.append((  0,  0, 20)) #Blue
+GlowingShadowRGB.append(( 20, 20,  0)) #Yellow
+GlowingShadowRGB.append(( 20,  0, 20)) #Purple
+GlowingShadowRGB.append((  0, 20, 20)) #Cyan
+GlowingShadowRGB.append(( 20, 10,  0)) #Orange
+
+
+
+
+# MAX
+# 39 40 41 42 43 44 45
+ColorList.append((255,  0,  0))  #MAX-RED    39
+ColorList.append((  0,255,  0))  #MAX-GREEN  40
+ColorList.append((  0,  0,255))  #MAX-BLUE   41
+ColorList.append((255,255,0  ))  #MAX-YELLOW 42
+ColorList.append((255,  0,255))  #MAX-PURPLE 43
+ColorList.append((  0,255,255))  #MAX-CYAN   44
+ColorList.append((255,255,255))  #MAX-WHITE  45
+
 
 
 
@@ -8000,7 +8037,7 @@ def ShowGlowingText(
     CenterHoriz = False,
     CenterVert  = False,
     FadeLevels  = 0,
-    FadeDelay   = 1
+    FadeDelay   = 0.25
     
   ):
 
@@ -8046,6 +8083,8 @@ def ShowGlowingText(
       g2 = math.ceil((g / GlowLevels) * i)
       b2 = math.ceil((b / GlowLevels) * i)
       CopySpriteToPixelsZoom(TheBanner,h,v,(r2,g2,b2),(0,0,0),ZoomFactor,Fill=False)
+    #erase remnants
+    CopySpriteToPixelsZoom(TheBanner,h,v,(0,0,0),(0,0,0),ZoomFactor,Fill=False)
     CopySpriteToPixelsZoom(TheBanner,h-1,v+1,(0,0,0),(0,0,0),ZoomFactor,Fill=False)
 
 
@@ -8491,7 +8530,8 @@ def TronGetRandomMessage(MessageType = 'TAUNT'):
                    'NOT TODAY!',
                    'GET THEM',
                    'ALERT!',
-                   'IS IT SAFE?'
+                   'IS IT SAFE?',
+                   'MISSED IT BY THAT MUCH!'
                    
       )
   elif (MessageType == 'CHALLENGE'):
@@ -8503,7 +8543,7 @@ def TronGetRandomMessage(MessageType = 'TAUNT'):
                    'WITNESS THE MIGHT OF MCP!',
                    'GET YOUR JETBIKE READY',
                    'RUN HIM INTO THE JETWALLS!',
-                   'THIS CLOCK FULLY ARMED AND OPERATIONAL',
+                   'THIS CLOCK IS FULLY ARMED AND OPERATIONAL',
                    'SIT FACING THE SCREEN LOGAN 5',
                    'GET READY',
                    'DESERVE VICTORY!',
@@ -8517,10 +8557,44 @@ def TronGetRandomMessage(MessageType = 'TAUNT'):
                    'GET ON YOUR BIKES AND RIDE!',
                    'ANOTHER WARRIOR FOR MY ASMUSEMENT!',
                    'DO YOU DARE TO ENTER THE ARENA?',
-                   'YOUR JET BIKE HAS A FLAT TIRE'
+                   'YOUR JET BIKE HAS A FLAT TIRE',
+                   'DO YOU HAVE TIME FOR A GAME?',
+                   'HOW ABOUT A GAME OF THERMONUCLEAR WAR?',
+                   'TODAY IS A GOOD DAY TO WATCH A CLOCK',
+                   'WELCOME TO THUNDERDOME',
+                   'DONT CHANGE THAT DIAL!',
+                   'THIS IS A TRANSMISSION FROM THE FUTURE',
+                   'IMAGINE IF YOU WILL A CLOCK THAT COULD PLAY GAMES',
+                   'IS IT THAT TIME AGAIN?',
+                   'PREVIOUSLY ON CLOCK...',
+                   'THANKS FOR TUNING IN',
+                   'YOU WONT BELIEVE WHAT HAPPENS NEXT',
+                   'MISSED IT BY THAT MUCH!',
+                   'CAN YOU DIG IT?',
+                   'IM BACK BABY'
                    
-
+      )
                    
+  elif (MessageType == 'SHORTGAME'):
+    #12 characters
+    MessageList = ('A DOT GAME',
+                   'REIMAGINED',
+                   'BY DATAGOD',
+                   'AN ODDITY',
+                   'A CLOCK GAME',
+                   'RGB MATRIX',
+                   'A FUN PROJECT',
+                   'ON YOUR CLOCK',
+                   'FUN TIMES',
+                   'PI POWERED',
+                   'BLOW YER MIND',
+                   'ULTIMATE TIME',
+                   'TIME SQUARED',
+                   'ITS ABOUT TIME',
+                   'TIME TO RUN',
+                   'END TIMES'
+                   'NO TIME LEFT',
+                   'SHOW TIME!'
       )
   
   
@@ -8538,7 +8612,7 @@ def TronGetRandomMessage(MessageType = 'TAUNT'):
 
 
 def EraseMessageArea(LinesFromBottom = 5):
-  for x in range (0,gv.HatWidth-1):
+  for x in range (0,gv.HatWidth):
     for y in range (gv.HatHeight-LinesFromBottom,gv.HatHeight):
       setpixel(x,y,0,0,0)
 
@@ -8553,6 +8627,29 @@ def IsSpotEmpty(h,v):
 
 
   
+def GetBrightAndShadowRGB():
+  #get a bright color and find a shadow that is one 20th the brightness
+  i = random.randint(1,7)
+  BrightRGB = GlowingTextRGB[i]
+  ShadowRGB = GlowingShadowRGB[i]
+
+  return BrightRGB, ShadowRGB
+
 
   
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
