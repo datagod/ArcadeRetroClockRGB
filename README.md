@@ -2,6 +2,8 @@
 # Arcade Retro Clock RGB
 Arcade Retro Clock converted to run on Adfruit LED Matrix (64x32) with RGB HAT
 
+Follow us on Facebook: https://www.facebook.com/ArcadeRetroClock
+
 ![ArcadeRetroClockTitleSmall](https://user-images.githubusercontent.com/7650580/112741888-64bd8200-8f57-11eb-9737-7b443b0ef523.jpg)
 
 Watch the Video: https://youtu.be/Z9uW0MQYcrE?t=10
