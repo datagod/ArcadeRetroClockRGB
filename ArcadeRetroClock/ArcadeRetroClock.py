@@ -5204,8 +5204,9 @@ def PlaySuperWorms():
   cf.ShowGlowingText(CenterHoriz = True,h = 0 ,v = 26,  Text = Message, RGB = BrightRGB,  ShadowRGB = ShadowRGB,  ZoomFactor = 1,GlowLevels=200,DropShadow=True,FadeLevels=200)
 
   cf.EraseMessageArea(LinesFromBottom=6)
+  BrightRGB, ShadowRGB = cf.GetBrightAndShadowRGB()
   Message = cf.TronGetRandomMessage(MessageType = 'CHALLENGE')
-  cf.ShowScrollingBanner2(Message,(200,50,0),gv.ScrollSleep,26)
+  cf.ShowScrollingBanner2(Message,BrightRGB,gv.ScrollSleep,26)
 
   gv.TheMatrix.Clear()
   gv.Canvas.Clear()
@@ -11673,7 +11674,7 @@ def ScrollScreenShowClock(direction,speed):
 
 
 def ActivateBigClock():
-  cf.ScrollBigClock('up',0.01, ZoomFactor=3,RGB=(200,0,0))
+  cf.ScrollBigClock('up',0.01, ZoomFactor=3)
 
       
 def ActivateClockMode(ClockOnDuration):
@@ -18427,7 +18428,7 @@ while (1==1):
 
 
 
-
+    
 
 
 
@@ -18464,6 +18465,9 @@ while (1==1):
     cf.ShowGlowingText(CenterHoriz = False,h = -1,v = 0,   Text = 'ARCADE', RGB = cf.HighGreen, ShadowRGB = cf.DarkGreen, ZoomFactor = 2)
     cf.ShowGlowingText(CenterHoriz = True,h = -1,v = 11,  Text = 'RETRO',  RGB = cf.HighRed,   ShadowRGB = cf.DarkRed,   ZoomFactor = 2)
     cf.ShowGlowingText(CenterHoriz = True,h = -1,v = 22,  Text = 'CLOCK',  RGB = cf.HighPurple,ShadowRGB = cf.DarkPurple,ZoomFactor = 2)
+
+    ActivateBigClock()
+
     time.sleep(1)
     gv.TheMatrix.Clear()
     gv.Canvas.Clear()

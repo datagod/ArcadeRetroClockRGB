@@ -7589,7 +7589,7 @@ def GetDistanceBetweenDots(h1,v1,h2,v2):
 
 
 
-def ScrollBigClock(direction,speed,ZoomFactor,RGB):    
+def ScrollBigClock(direction,speed,ZoomFactor):    
   #Screen capture is a copy of the unicorn display Buffer, which in HD is a numby array
   #Capture the screen, then pass that to this function
   #this function will make a copy, chop up that copy and display the slices in the order to make
@@ -7597,35 +7597,47 @@ def ScrollBigClock(direction,speed,ZoomFactor,RGB):
   
   #For now, we scroll, replacing with empty screen.  Also, reverse.
  
+  RGB, ShadowRGB = GetBrightAndShadowRGB()
 
-  ScreenCap    = copy.deepcopy(gv.ScreenArray)
-  OldScreenCap = copy.deepcopy(gv.ScreenArray)
+  #gv.Canvas.Clear()
+  
+  #ClockScreen
+  ClockScreen  = [[]]
+  ClockScreen  = [[ (0,0,0) for i in range(gv.HatWidth)] for i in range(gv.HatHeight)]
   
 
+  ScreenCopy = copy.deepcopy(gv.ScreenArray)
+  ScreenCopy2 = copy.deepcopy(gv.ScreenArray)
+
+  #ClearBuffers()
+  print("about to create clock sprite")
   TheTime = CreateClockSprite(12)
   TheTime.h = (gv.HatWidth  //2) - (TheTime.width  * ZoomFactor // 2)
   TheTime.v = (gv.HatHeight //2) - (TheTime.height * ZoomFactor // 2)
-
-
-  CopySpriteToBufferZoom(TheTime,TheTime.h,TheTime.v, ColorTuple=RGB,FillerTuple=(-1,-1,-1),ZoomFactor = ZoomFactor)
-  InsertLine = gv.ScreenArray[0]
   
-  print("InsertLine LEN:",len(InsertLine))
-  print("ScreenCap  LEN:",len(ScreenCap[0]))
-  print("ScreenArray  LEN:",len(gv.ScreenArray[0]))
+
+  print ("create clock scren")
+  #this will copy the clock sprite to the regular screen buffer gv.ScreenBuffer
+  ClockScreen = CopySpriteToBufferZoom(TheBuffer=ClockScreen, TheSprite=TheTime,h=TheTime.h-1,v=TheTime.v+1, ColorTuple=ShadowRGB,FillerTuple=(-1,-1,-1),ZoomFactor = ZoomFactor,Fill=False)
+  ClockScreen = CopySpriteToBufferZoom(TheBuffer=ClockScreen, TheSprite=TheTime,h=TheTime.h,v=TheTime.v, ColorTuple=RGB,FillerTuple=(-1,-1,-1),ZoomFactor = ZoomFactor,Fill=False)
+  print ("clock screen created")
+  
+  print ("about to start scrolling")
+  
+    
 
   #Scroll up
   #Delete top row, insert blank on bottom, pushing remaining to the top
   if (direction == 'up'):
     
-    #print ("Buffer",Buffer)
-
+  
     for x in range (0,gv.HatHeight):
-      InsertLine = gv.ScreenArray[x]
-      ScreenCap = numpy.delete(ScreenCap,(0),axis=0)
-      ScreenCap = numpy.insert(ScreenCap,gv.HatHeight-1,InsertLine,axis=0)
-      setpixelsLED(ScreenCap)
-      #unicorn.show()
+      #Take a line from the clock sprite 
+      InsertLine = ClockScreen[x]
+      ScreenCopy = numpy.delete(ScreenCopy,(0),axis=0)
+      ScreenCopy  = numpy.insert(ScreenCopy,gv.HatHeight-1,InsertLine,axis=0)
+      setpixelsLED(ScreenCopy)
+
       #SendBufferPacket(RemoteDisplay,gv.HatHeight,gv.HatWidth)
       time.sleep(speed)
 
@@ -7636,6 +7648,9 @@ def ScrollBigClock(direction,speed,ZoomFactor,RGB):
   done  = 0
   ShownOnce = 0
   
+
+  print("going into a loop")
+
   while (1 == 1):
  
     #If the time has changed, draw a new time
@@ -7643,28 +7658,32 @@ def ScrollBigClock(direction,speed,ZoomFactor,RGB):
     if (mm != Oldmm):
       #Erase old time
       Oldmm = mm
-      ClearBigLED()
+      
 
       TheTime = CreateClockSprite(12)
       TheTime.h = (gv.HatWidth //2 )  - (TheTime.width * ZoomFactor // 2)
       TheTime.v = (gv.HatHeight //2 ) - (TheTime.height * ZoomFactor // 2)
 
       #Display New Time
-      CopySpriteToPixelsZoom(TheTime,TheTime.h,TheTime.v, ColorTuple=RGB,FillerTuple=(-1,-1,-1),ZoomFactor = ZoomFactor)
+      ClockScreen  = [[]]
+      ClockScreen  = [[ (0,0,0) for i in range(gv.HatWidth)] for i in range(gv.HatHeight)]
+      ClockScreen = CopySpriteToBufferZoom(TheBuffer=ClockScreen, TheSprite=TheTime,h=TheTime.h-1,v=TheTime.v+1, ColorTuple=ShadowRGB,FillerTuple=(-1,-1,-1),ZoomFactor = ZoomFactor,Fill=False)
+      ClockScreen = CopySpriteToBufferZoom(TheBuffer=ClockScreen, TheSprite=TheTime,h=TheTime.h,v=TheTime.v, ColorTuple=RGB,FillerTuple=(-1,-1,-1),ZoomFactor = ZoomFactor,Fill=False)
+      setpixelsLED(ClockScreen)
 
     Key = PollKeyboard()
     if (Key =='q'):
       for x in range (0,gv.HatHeight):
-        InsertLine = OldScreenCap[x]
-        ScreenCap = numpy.delete(ScreenCap,(0),axis=0)
-        ScreenCap = numpy.insert(ScreenCap,gv.HatHeight-1,InsertLine,axis=0)
-        setpixelsLED(ScreenCap)
+        InsertLine = ScreenCopy2[x]
+        ClockScreen = numpy.delete(ClockScreen,(0),axis=0)
+        ClockScreen = numpy.insert(ClockScreen,gv.HatHeight-1,InsertLine,axis=0)
+        setpixelsLED(ClockScreen)
         #unicorn.show()
         #SendBufferPacket(RemoteDisplay,gv.HatHeight,gv.HatWidth)
         time.sleep(speed)
       return;
 
-         
+    print("sleeping")
     time.sleep(1)
 
 
@@ -8161,8 +8180,8 @@ def CopySpriteToPixelsZoom(TheSprite,h,v, ColorTuple=(-1,-1,-1),FillerTuple=(-1,
 
 
 
-def CopySpriteToBufferZoom(TheSprite,h,v, ColorTuple=(-1,-1,-1),FillerTuple=(-1,-1,-1),ZoomFactor = 1,Fill=True):
-  #Copy a regular sprite to the a buffer
+def CopySpriteToBufferZoom(TheBuffer,TheSprite,h,v, ColorTuple=(-1,-1,-1),FillerTuple=(-1,-1,-1),ZoomFactor = 1,Fill=True):
+  #Copy a regular sprite to a buffer
   #Apply a ZoomFactor i.e  1 = normal / 2 = double in size / 3 = 3 times the size
   #print ("Copying sprite to playfield:",TheSprite.name, ObjectType, Filler)
 
@@ -8192,7 +8211,7 @@ def CopySpriteToBufferZoom(TheSprite,h,v, ColorTuple=(-1,-1,-1),FillerTuple=(-1,
     y = y * ZoomFactor
     x = x * ZoomFactor
 
- 
+    
     if (ZoomFactor >= 1):
       for zv in range (0,ZoomFactor):
         for zh in range (0,ZoomFactor):
@@ -8202,16 +8221,19 @@ def CopySpriteToBufferZoom(TheSprite,h,v, ColorTuple=(-1,-1,-1),FillerTuple=(-1,
           if(CheckBoundary(H,V) == 0):
 
             if TheSprite.grid[count] != 0:
-              gv.Canvas.SetPixel(H,V,r,g,b)
-              gv.ScreenArray[V][H]=(r,g,b)
+              #gv.Canvas.SetPixel(H,V,r,g,b)
+              #gv.ScreenArray[V][H]=(r,g,b)
+              TheBuffer[V][H]=(r,g,b)
+
             else:
               if (Fill == True):
-                gv.Canvas.SetPixel(H,V,fr,fg,fb)
-                gv.ScreenArray[V][H]=(fr,fg,fb)
+                #gv.Canvas.SetPixel(H,V,fr,fg,fb)
+                #gv.ScreenArray[V][H]=(fr,fg,fb)
+                TheBuffer[V][H]=(fr,fg,fb)
 
 
   
-  return
+  return TheBuffer
 
 
 
