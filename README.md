@@ -59,3 +59,7 @@ If the mother ship gets hit twice it gets angry and starts nuking.
 <BR>Adafruit RGB Hat
 <BR>hzeller's RBG LED Matrix code: https://github.com/hzeller/rpi-rgb-led-matrix
 
+
+# Support / Questions
+Join us on discord: https://discord.gg/fUzbh48vRm
+  
